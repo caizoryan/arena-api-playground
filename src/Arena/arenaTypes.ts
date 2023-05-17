@@ -1,3 +1,6 @@
+// This is not mine, written by: https://github.com/e-e-e/arena-ts
+// ---------------------------------------------------------------
+
 export type ArenaUser = {
   /** The internal ID of the user */
   id: number;
@@ -124,11 +127,11 @@ export type ArenaBlock = {
   created_at: string;
   /** (String)  Represents the state of the blocks processing lifecycle (this will most often "Available" but can also be "Failure", "Processed", "Processing") */
   state:
-    | "available"
-    | "failure"
-    | "processed"
-    | "processing"
-    | "remote_processing";
+  | "available"
+  | "failure"
+  | "processed"
+  | "processing"
+  | "remote_processing";
   visibility?: "private" | "public"; // from create Block
   /**  (Integer)  The number of comments on a block */
   comment_count: number;
