@@ -1,0 +1,19 @@
+h3 {
+  border: 2px solid var(--color-2);
+  padding: calc(var(--padding) / 2);
+  margin: calc(var(--padding) / 2) 0;
+  transition: ease-in all 100ms;
+  cursor: pointer;
+}
+
+h3:hover {
+  border: 2px solid var(--color-2);
+  transform: translateX(20px);
+}
+
+.active {
+  background-color: var(--color-2);
+  color: var(--color-1);
+  border: 2px solid var(--color-2);
+  /* transform: translateX(20px); */
+}

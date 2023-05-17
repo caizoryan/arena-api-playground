@@ -1,0 +1,33 @@
+:root {
+  --color-1: rgb(10, 10, 10);
+  --color-2: rgb(245, 245, 245);
+  --color-3: rgb(150, 150, 150);
+  --padding: 40px;
+}
+* {
+  font-family: Arial;
+  font-weight: 100;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: var(--color-2);
+  background-color: var(--color-1);
+}
+
+.sabka-baap {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 13px;
+  line-height: 1.35em;
+  color: var(--color-3);
+}

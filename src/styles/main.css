@@ -1,0 +1,7 @@
+.main-container {
+  background-color: var(--color-1);
+  color: var(--color-2);
+  width: 80vw;
+  height: 100vh;
+  transition: ease-in 150ms all;
+}
