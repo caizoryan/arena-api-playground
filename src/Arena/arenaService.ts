@@ -23,6 +23,9 @@ import {
   GetUserFollowingApiResponse,
   GetBlockCommentApiResponse,
   CreateBlockCommentApiResponse,
+  SearchBlocksApiResponse,
+  SearchUsersApiResponse,
+  SearchChannelsApiResponse,
 } from "./arenaTypes";
 
 export class HttpError extends Error {
@@ -124,17 +127,17 @@ export interface ArenaSearchApi {
   users(
     query: string,
     options?: PaginationAttributes
-  ): Promise<SearchApiResponse>;
+  ): Promise<SearchUsersApiResponse>;
 
   channels(
     query: string,
     options?: PaginationAttributes
-  ): Promise<SearchApiResponse>;
+  ): Promise<SearchChannelsApiResponse>;
 
   blocks(
     query: string,
     options?: PaginationAttributes
-  ): Promise<SearchApiResponse>;
+  ): Promise<SearchBlocksApiResponse>;
 }
 
 export interface ArenaApi {
@@ -326,17 +329,26 @@ export class ArenaClient implements ArenaApi {
           q: query,
           ...options,
         }),
-      blocks: (query: string, options?: PaginationAttributes): Promise<any> =>
+      blocks: (
+        query: string,
+        options?: PaginationAttributes
+      ): Promise<SearchBlocksApiResponse> =>
         this.getJsonWithSearchAndPaginationQuery(`/search/blocks`, {
           q: query,
           ...options,
         }),
-      channels: (query: string, options?: PaginationAttributes): Promise<any> =>
+      channels: (
+        query: string,
+        options?: PaginationAttributes
+      ): Promise<SearchChannelsApiResponse> =>
         this.getJsonWithSearchAndPaginationQuery(`/search/channels`, {
           q: query,
           ...options,
         }),
-      users: (query: string, options?: PaginationAttributes): Promise<any> =>
+      users: (
+        query: string,
+        options?: PaginationAttributes
+      ): Promise<SearchUsersApiResponse> =>
         this.getJsonWithSearchAndPaginationQuery(`/search/users`, {
           q: query,
           ...options,

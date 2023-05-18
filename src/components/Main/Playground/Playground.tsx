@@ -1,7 +1,11 @@
 import { Component } from "solid-js";
 import "../../../styles/playground.css";
-import QueryBuilder from "./QueryBuilder";
+import QueryBuilder from "../Playground/Querybuilder/QueryBuilder";
 import ResponsePainter from "./ResponsePainter";
+import { ArenaClient } from "../../../Arena/arenaService";
+import { TOKEN } from "../../../env";
+
+export const arena = new ArenaClient({ token: TOKEN });
 
 const Playground: Component = () => {
   return (

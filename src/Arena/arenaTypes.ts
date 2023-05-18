@@ -379,3 +379,36 @@ export type SearchApiResponse = {
   blocks: ArenaBlock[];
   users: ArenaUserWithDetails[];
 };
+export type SearchChannelsApiResponse = {
+  term: string;
+  per: number;
+  current_page: number;
+  total_pages: number;
+  length: number;
+  authenticated: boolean;
+  channels: ArenaChannel[];
+  blocks: [];
+  users: [];
+};
+export type SearchBlocksApiResponse = {
+  term: string;
+  per: number;
+  current_page: number;
+  total_pages: number;
+  length: number;
+  authenticated: boolean;
+  channels: [];
+  blocks: ArenaBlock[];
+  users: [];
+};
+export type SearchUsersApiResponse = {
+  term: string;
+  per: number;
+  current_page: number;
+  total_pages: number;
+  length: number;
+  authenticated: boolean;
+  channels: [];
+  blocks: [];
+  users: ArenaUserWithDetails[];
+};
