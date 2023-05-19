@@ -1,43 +1,43 @@
 import { Component, For } from "solid-js";
-import { query, setState, Select } from "./QueryBuilder";
+import { Select, nextState } from "./QueryBuilder";
 
 const Endpoint: Component = () => {
   const endpoint = {
     use: (endpoint: string) => {
-      query.endpoint = endpoint;
-      if (endpoint === "channels" || endpoint === "me") setState("action");
-      else setState("slug");
+      if (endpoint === "channels" || endpoint === "me")
+        nextState("end", endpoint);
+      else nextState("slug", endpoint);
     },
     available: () => {
       return [
         {
           name: "channels",
-          desc: "Get channels of authenticated user",
+          description: "Get channels of authenticated user",
           auth: true,
         },
         {
           name: "me",
-          desc: "Get authenticated user details",
+          description: "Get authenticated user details",
           auth: true,
         },
         {
           name: "user",
-          desc: "Access user details based on user id",
+          description: "Access user details based on user id",
           auth: false,
         },
         {
           name: "block",
-          desc: "Access block based on block id",
+          description: "Access block based on block id",
           auth: false,
         },
         {
           name: "group",
-          desc: "Acess group details based on group slug",
+          description: "Acess group details based on group slug",
           auth: false,
         },
         {
           name: "channel",
-          desc: "Access channels using a channel slug",
+          description: "Access channels using a channel slug",
           auth: false,
         },
       ];
@@ -52,8 +52,8 @@ const Endpoint: Component = () => {
           {(option) => (
             <Select
               name={option.name}
-              desc={option.desc}
-              select={endpoint.use}
+              desc={option.description}
+              select={() => endpoint.use(option.name)}
             />
           )}
         </For>

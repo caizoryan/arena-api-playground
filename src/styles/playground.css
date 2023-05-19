@@ -1,11 +1,13 @@
 .playground-container {
   padding: var(--padding);
+  max-width: 60vw;
 }
 
 .domain {
   border: 1px solid var(--color-3);
   color: var(--color-3);
   padding: calc(var(--padding) / 3);
+  font-family: monospace;
 }
 
 .endpoint {
@@ -20,6 +22,14 @@
   display: flex;
 }
 
+.back {
+  font-size: 14px;
+  color: var(--color-3);
+  font-weight: 300;
+  margin: 40px 0;
+  cursor: pointer;
+}
+
 .select {
   width: 200px;
   height: 200px;
@@ -27,6 +37,7 @@
   position: relative;
   border: 1px solid var(--color-2);
   margin: var(--margin) 20px var(--margin) 0;
+  cursor: pointer;
 
   background-color: var(--color-1);
   color: var(--color-2);

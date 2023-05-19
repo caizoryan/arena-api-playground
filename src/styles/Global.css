@@ -31,3 +31,29 @@ p {
   line-height: 1.35em;
   color: var(--color-3);
 }
+
+.inline {
+  display: flex;
+}
+
+input {
+  all: unset;
+  background: var(--color-1);
+  color: var(--color-2);
+  border: 2px solid var(--color-2);
+  padding: calc(var(--padding) / 4);
+  margin: 10px 0;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  border: 2px solid var(--color-2);
+  padding: calc(var(--padding) / 4);
+  transition: ease-in-out all 100ms;
+}
+
+button:hover {
+  background: var(--color-2);
+  color: var(--color-1);
+}

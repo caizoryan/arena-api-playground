@@ -7,14 +7,12 @@ import {
   createSignal,
   Switch,
 } from "solid-js";
-import { query, Select, setState } from "./QueryBuilder";
+import { nextState, query, Select } from "./QueryBuilder";
 import { arena } from "../Playground";
+import Space from "../../../Space";
 
 const slug = {
-  use: (slug: string) => {
-    query.slug = slug;
-    setState("action");
-  },
+  use: (slug: string) => nextState("action", slug),
   available: () => {
     switch (query.endpoint) {
       case "channel":
@@ -84,26 +82,34 @@ const Slug: Component = () => {
   });
 
   let ref: HTMLInputElement;
+  const [active, setActive] = createSignal(false);
 
   return (
     <>
-      <div>
-        Search for the {slug.available()?.noun} for your {query.endpoint}
+      <div class="inline">
+        <div style={active() ? "opacity: .4" : "opacity: 1.0"}>
+          <div>
+            Search for the {slug.available()?.noun} for your {query.endpoint}
+          </div>
+          <input
+            type="text"
+            onInput={(e) => setTerm(e.currentTarget.value)}
+            onFocus={() => setActive(false)}
+          ></input>
+        </div>
+        <Space d={{ w: "40px", h: "10px" }} />
+        <div style={active() ? "opacity: 1" : "opacity: 0.4"}>
+          <div>or enter the {slug.available().noun} if you already know it</div>
+          <input type="text" ref={ref!} onFocus={() => setActive(true)}></input>
+          <button
+            onClick={() => {
+              slug.use(ref?.value);
+            }}
+          >
+            Set {slug.available().noun}
+          </button>
+        </div>
       </div>
-      <input
-        type="text"
-        onInput={(e) => setTerm(e.currentTarget.value)}
-      ></input>
-      <div>or enter the {slug.available().noun} if you already know it</div>
-      <input type="text" ref={ref!}></input>
-      <button
-        onClick={() => {
-          slug.use(ref?.value);
-        }}
-      >
-        Set {slug.available().noun}
-      </button>
-
       <div style={"display: flex; flex-wrap: wrap"}>
         <For each={searchResults()}>
           {(result) => <Results result={result} />}
