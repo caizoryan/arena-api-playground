@@ -19,12 +19,34 @@ const Action: Component = () => {
               desc: "Connect a block or a channel to the selected channel",
               auth: true,
               method: "POST",
+              options: [
+                {
+                  name: "id",
+                  desc: "The id of the block or channel to be disconnected",
+                },
+                {
+                  name: "type",
+                  desc: "select channel or block",
+                  options: ["channel", "block"],
+                },
+              ],
             },
             {
               name: "disconnect",
               desc: "Disconnect and existing block or a channel in selected channel",
               auth: true,
               method: "POST",
+              options: [
+                {
+                  name: "Id",
+                  desc: "The id of the block or channel to be disconnected",
+                },
+                {
+                  name: "type",
+                  desc: "select channel or block",
+                  options: ["channel", "block"],
+                },
+              ],
             },
             {
               name: "contents",
@@ -43,18 +65,54 @@ const Action: Component = () => {
               desc: "Create a new channel",
               auth: true,
               method: "POST",
+              options: [
+                {
+                  name: "title",
+                  desc: "Title of the Channel",
+                },
+                {
+                  name: "status",
+                  desc: "Status of the channel, private, closed or open",
+                  options: ["private", "open", "closed"],
+                },
+              ],
             },
             {
               name: "update",
               desc: "Update channel title and visibility",
               auth: true,
               method: "PUT",
+              options: [
+                {
+                  name: "title",
+                  desc: "Title of the Channel",
+                },
+                {
+                  name: "status",
+                  desc: "Status of the channel, private, closed or open",
+                  options: ["private", "open", "closed"],
+                },
+              ],
             },
             {
               name: "createBlock",
               desc: "Create a block in the channel",
               auth: true,
               method: "POST",
+              options: [
+                {
+                  name: "source",
+                  desc: "Source of the block",
+                },
+                {
+                  name: "content",
+                  desc: "Content of the block",
+                },
+                {
+                  name: "description",
+                  desc: "Description of the block",
+                },
+              ],
             },
             {
               name: "get",
@@ -88,6 +146,20 @@ const Action: Component = () => {
               desc: "Update the tile, description and contents of the block",
               auth: true,
               method: "PUT",
+              options: [
+                {
+                  name: "title",
+                  desc: "Title of the block",
+                },
+                {
+                  name: "description",
+                  desc: "Description of the block",
+                },
+                {
+                  name: "content",
+                  desc: "Content of the block",
+                },
+              ],
             },
             {
               name: "get",
@@ -106,23 +178,52 @@ const Action: Component = () => {
               desc: "Add a comment to selected block",
               auth: true,
               method: "POST",
+              options: [
+                {
+                  name: "body",
+                  desc: "Comment body",
+                },
+              ],
             },
             {
               name: "deleteComment",
               desc: "Delete a comment on selected block",
               auth: true,
               method: "DELETE",
+              options: [
+                {
+                  name: "commentId",
+                  desc: "Comment id to delete",
+                },
+              ],
             },
             {
               name: "updateComment",
               desc: "Update comment on selected block",
               auth: true,
               method: "PUT",
+              options: [
+                {
+                  name: "commentId",
+                  desc: "Comment id to update",
+                },
+                {
+                  name: "body",
+                  desc: "Updated comment",
+                },
+              ],
             },
           ];
       }
     },
   };
+
+  function handleClick(action: any) {
+    if (action.options) {
+      nextState("options", action.name);
+      query.options = action.options;
+    } else nextState("pagination", action.name);
+  }
   return (
     <>
       <div>Choose an action</div>
@@ -132,7 +233,7 @@ const Action: Component = () => {
             <Select
               name={action.name}
               desc={action.desc}
-              select={() => actions.use(action.name)}
+              select={() => handleClick(action)}
             ></Select>
           )}
         </For>

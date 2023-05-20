@@ -4,6 +4,10 @@ import { createMutable } from "solid-js/store";
 import Endpoint from "./Endpoint";
 import Slug from "./Slug";
 import Action from "./Action";
+import Options from "./Options";
+import Pagination from "./Pagination";
+import { TOKEN } from "../../../../env";
+import { arena } from "../Playground";
 
 const domain = "https://api.are.na/v2/";
 
@@ -24,17 +28,41 @@ type History = {
   query: State;
 };
 
-type State = "endpoint" | "slug" | "action" | "options" | "paginate" | "end";
+type Options = {
+  name: string;
+  desc: string;
+  or: boolean;
+  value: string;
+  options?: string[];
+};
+
+type Query = {
+  endpoint: string;
+  slug: string;
+  action: string;
+  options: Options[];
+  pagination: [];
+};
+
+type State = "endpoint" | "slug" | "action" | "options" | "pagination" | "end";
 export const [state, setState] = createSignal<State>("endpoint");
 const history: History[] = createMutable([]);
 
-export const nextState = (_state: State, query: string) => {
+export const query = createMutable<Query>({
+  endpoint: "",
+  slug: "",
+  action: "",
+  options: [],
+  pagination: [],
+});
+
+export function nextState(_state: State, query: string) {
   let ref = setQuery(query);
   history.push({ state: state(), query: ref });
   setState(_state);
-};
+}
 
-const setQuery = (q: string): State => {
+function setQuery(q: string): State {
   switch (state()) {
     case "endpoint":
       query.endpoint = q;
@@ -46,31 +74,22 @@ const setQuery = (q: string): State => {
       query.action = q;
       return "action";
     case "options":
-      query.options = q;
       return "options";
-    case "paginate":
-      query.pagination = q;
-      return "options";
+    case "pagination":
+      return "pagination";
     case "end":
       return "end";
   }
-};
+}
 
-const lastState = () => {
+const GoBack = () => {
   let last = history[history.length - 1];
-  console.log(last.state);
   setState(last.state);
-  query[last.query] = "";
+  if (last.query === "end") null;
+  else if (last.query === "options" || last.query === "pagination") null;
+  else query[last.query] = "";
   history.pop();
 };
-
-export const query = createMutable({
-  endpoint: "",
-  slug: "",
-  action: "",
-  options: "",
-  pagination: {},
-});
 
 // Components
 // -------------------------
@@ -101,21 +120,37 @@ export const Select: Component<{
   );
 };
 
-function sendRequest() { }
+function sendRequest() {
+  const routes = [];
+  if (query.slug) routes.push(query.slug);
+  if (query.action) routes.push(query.action);
+  let end = routes.join("/");
+
+  let headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${TOKEN}`,
+  };
+
+  fetch(`${domain}${query.endpoint}/${end}`, {
+    method: "GET",
+    headers: headers,
+  }).then((res) => console.log(res.json()));
+}
 
 const QueryBuilder: Component = () => {
   return (
     <div>
       <Show when={history.length > 0}>
-        <span class="back" onClick={lastState}>
+        <span class="back" onClick={GoBack}>
           {"<< Go back"}
         </span>
       </Show>
       <h1>Query Builder</h1>
       <div class="query">
         <div class="domain">
-          {`fetch("${domain}${query.endpoint}${query.slug != "" ? "/" + query.slug : ""
-            }").then((res) => console.log(res))`}
+          {`fetch("${domain}${query.endpoint}${
+            query.slug != "" ? "/" + query.slug : ""
+          }").then((res) => console.log(res))`}
         </div>
       </div>
       <Switch>
@@ -129,10 +164,10 @@ const QueryBuilder: Component = () => {
           <Action />
         </Match>
         <Match when={state() === "options"}>
-          <Action />
+          <Options />
         </Match>
-        <Match when={state() === "paginate"}>
-          <Action />
+        <Match when={state() === "pagination"}>
+          <Pagination />
         </Match>
         <Match when={state() === "end"}>
           <p
