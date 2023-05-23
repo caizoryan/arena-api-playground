@@ -7,7 +7,6 @@ import Action from "./Action";
 import Options from "./Options";
 import Pagination from "./Pagination";
 import { TOKEN } from "../../../../env";
-import { arena } from "../Playground";
 
 const domain = "https://api.are.na/v2/";
 
