@@ -1,16 +1,15 @@
 import { Component, createSignal, For, Match, Show, Switch } from "solid-js";
-import { nextState, query, Select } from "./QueryBuilder";
+import { nextState, query } from "./QueryBuilder";
 
 // Build from query.options
-//
+// ------------------------
+
 const OptionBlock: Component<{
   name: string;
   desc: string;
   select: (value: string) => void;
   options?: string[];
 }> = (props) => {
-  const [show, setShow] = createSignal(false);
-  const [selected, setSelected] = createSignal("Choose");
   return (
     <>
       <div class="select">
@@ -20,22 +19,12 @@ const OptionBlock: Component<{
         </div>
         <Switch>
           <Match when={props.options}>
-            <p onClick={() => setShow(true)}>{selected()}</p>
-            <Show when={show()}>
-              <For each={props.options}>
-                {(option) => (
-                  <p
-                    onClick={() => {
-                      setSelected(option);
-                      setShow(false);
-                      props.select(selected());
-                    }}
-                  >
-                    {option}
-                  </p>
-                )}
-              </For>
-            </Show>
+            {props.options ? (
+              <DropDown
+                options={props.options}
+                select={props.select}
+              ></DropDown>
+            ) : null}
           </Match>
           <Match when={!props.options}>
             <input
@@ -45,6 +34,34 @@ const OptionBlock: Component<{
           </Match>
         </Switch>
       </div>
+    </>
+  );
+};
+
+export const DropDown: Component<{
+  options: string[];
+  select: (option: string) => void;
+}> = (props) => {
+  const [show, setShow] = createSignal(false);
+  const [selected, setSelected] = createSignal("Choose");
+  return (
+    <>
+      <p onClick={() => setShow(true)}>{selected()}</p>
+      <Show when={show()}>
+        <For each={props.options}>
+          {(option) => (
+            <p
+              onClick={() => {
+                setSelected(option);
+                setShow(false);
+                props.select(selected());
+              }}
+            >
+              {option}
+            </p>
+          )}
+        </For>
+      </Show>
     </>
   );
 };

@@ -21,7 +21,7 @@ const domain = "https://api.are.na/v2/";
 // See results
 //
 
-// State
+// Types
 // -------------------------
 type History = {
   state: State;
@@ -44,6 +44,8 @@ type Query = {
   pagination: [];
 };
 
+// State
+// -------------------------
 type State = "endpoint" | "slug" | "action" | "options" | "pagination" | "end";
 export const [state, setState] = createSignal<State>("endpoint");
 const history: History[] = createMutable([]);
@@ -148,9 +150,8 @@ const QueryBuilder: Component = () => {
       <h1>Query Builder</h1>
       <div class="query">
         <div class="domain">
-          {`fetch("${domain}${query.endpoint}${
-            query.slug != "" ? "/" + query.slug : ""
-          }").then((res) => console.log(res))`}
+          {`fetch("${domain}${query.endpoint}${query.slug != "" ? "/" + query.slug : ""
+            }").then((res) => console.log(res))`}
         </div>
       </div>
       <Switch>

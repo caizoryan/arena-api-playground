@@ -1,44 +1,8 @@
 import { Component, For } from "solid-js";
-import { Select, nextState } from "./QueryBuilder";
+import { Select } from "./QueryBuilder";
+import { endpoint } from "../../../../Store/Data";
 
 const Endpoint: Component = () => {
-  const endpoint = {
-    use: (endpoint: string) => {
-      if (endpoint === "channels" || endpoint === "me")
-        nextState("end", endpoint);
-      else nextState("slug", endpoint);
-    },
-    available: () => {
-      return [
-        {
-          name: "me",
-          description: "Get authenticated user details",
-          auth: true,
-        },
-        {
-          name: "user",
-          description: "Access user details based on user id",
-          auth: false,
-        },
-        {
-          name: "block",
-          description: "Access block based on block id",
-          auth: false,
-        },
-        {
-          name: "group",
-          description: "Acess group details based on group slug",
-          auth: false,
-        },
-        {
-          name: "channel",
-          description: "Access channels using a channel slug",
-          auth: false,
-        },
-      ];
-    },
-  };
-
   return (
     <>
       <div>

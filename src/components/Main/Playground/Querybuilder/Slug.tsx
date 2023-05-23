@@ -6,53 +6,12 @@ import {
   createResource,
   createSignal,
   Switch,
+  Show,
 } from "solid-js";
-import { nextState, query, Select } from "./QueryBuilder";
-import { arena } from "../Playground";
+import { query, Select } from "./QueryBuilder";
 import Space from "../../../Space";
+import { slug } from "../../../../Store/Data";
 
-const slug = {
-  use: (slug: string) => nextState("action", slug),
-  available: () => {
-    switch (query.endpoint) {
-      case "channel":
-        return {
-          type: "text",
-          search: arena.search.channels,
-          end: "channels",
-          noun: "slug",
-        };
-      case "block":
-        return {
-          type: "number",
-          search: arena.search.blocks,
-          end: "blocks",
-          noun: "id",
-        };
-      case "user":
-        return {
-          type: "number",
-          search: arena.search.users,
-          end: "users",
-          noun: "id",
-        };
-      case "group":
-        return {
-          type: "text",
-          search: arena.search.channels,
-          end: "users",
-          noun: "slug",
-        };
-      default:
-        return {
-          type: "text",
-          search: arena.search.channels,
-          end: "channels",
-          noun: "slug",
-        };
-    }
-  },
-};
 const Slug: Component = () => {
   let paginate = { per: 5 };
   const [term, setTerm] = createSignal("");
@@ -62,7 +21,7 @@ const Slug: Component = () => {
     return await slug
       .available()
       .search(search, paginate)
-      .then((res) => {
+      .then((res: any) => {
         switch (slug.available().end) {
           case "channels":
             return res.channels;
@@ -84,6 +43,8 @@ const Slug: Component = () => {
   let ref: HTMLInputElement;
   const [active, setActive] = createSignal(false);
 
+  //TODO remove search capability for groups
+
   return (
     <>
       <div class="inline">
@@ -100,6 +61,12 @@ const Slug: Component = () => {
         <Space d={{ w: "40px", h: "10px" }} />
         <div style={active() ? "opacity: 1" : "opacity: 0.4"}>
           <div>or enter the {slug.available().noun} if you already know it</div>
+          <Show when={query.endpoint === "channel"}>
+            <p>
+              Note: if you want to create a channel, enter the title of the
+              channel here.
+            </p>
+          </Show>
           <input type="text" ref={ref!} onFocus={() => setActive(true)}></input>
           <button
             onClick={() => {
