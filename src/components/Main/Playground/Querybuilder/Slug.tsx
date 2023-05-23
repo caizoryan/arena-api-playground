@@ -8,9 +8,10 @@ import {
   Switch,
   Show,
 } from "solid-js";
-import { query, Select } from "./QueryBuilder";
+import { query } from "../../../../Store/State";
 import Space from "../../../Space";
 import { slug } from "../../../../Store/Data";
+import Select from "../../../Babies/Select";
 
 const Slug: Component = () => {
   let paginate = { per: 5 };
