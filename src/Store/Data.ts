@@ -96,6 +96,26 @@ export const actions = {
             desc: "Change the position a block or a channel in selected channel",
             auth: true,
             method: "PUT",
+            options: [
+              {
+                name: "id",
+                desc: "The id of the block or channel to be disconnected",
+                type: "number",
+                value: "",
+              },
+              {
+                name: "position",
+                desc: "New position of the block or a channel in selected channel",
+                type: "number",
+                value: "",
+              },
+              {
+                name: "type",
+                desc: "select channel or block",
+                options: ["channel", "block"],
+                value: "",
+              },
+            ],
           },
           {
             name: "connect",
@@ -106,11 +126,14 @@ export const actions = {
               {
                 name: "id",
                 desc: "The id of the block or channel to be disconnected",
+                type: "number",
+                value: "",
               },
               {
                 name: "type",
                 desc: "select channel or block",
                 options: ["channel", "block"],
+                value: "",
               },
             ],
           },
@@ -123,11 +146,14 @@ export const actions = {
               {
                 name: "id",
                 desc: "The id of the block or channel to be disconnected",
+                type: "number",
+                value: "",
               },
               {
                 name: "type",
                 desc: "select channel or block",
                 options: ["channel", "block"],
+                value: "",
               },
             ],
           },
@@ -152,11 +178,15 @@ export const actions = {
               {
                 name: "title",
                 desc: "Title of the Channel",
+                type: "text",
+                value: "",
               },
               {
                 name: "status",
                 desc: "Status of the channel, private, closed or open",
                 options: ["private", "open", "closed"],
+                type: "text",
+                value: "",
               },
             ],
           },
@@ -169,11 +199,15 @@ export const actions = {
               {
                 name: "title",
                 desc: "Title of the Channel",
+                type: "text",
+                value: "",
               },
               {
                 name: "status",
                 desc: "Status of the channel, private, closed or open",
                 options: ["private", "open", "closed"],
+                type: "text",
+                value: "",
               },
             ],
           },
@@ -186,14 +220,20 @@ export const actions = {
               {
                 name: "source",
                 desc: "Source of the block",
+                type: "text",
+                value: "",
               },
               {
                 name: "content",
                 desc: "Content of the block",
+                type: "text",
+                value: "",
               },
               {
                 name: "description",
                 desc: "Description of the block",
+                type: "text",
+                value: "",
               },
             ],
           },
@@ -233,14 +273,20 @@ export const actions = {
               {
                 name: "title",
                 desc: "Title of the block",
+                type: "text",
+                value: "",
               },
               {
                 name: "description",
                 desc: "Description of the block",
+                type: "text",
+                value: "",
               },
               {
                 name: "content",
                 desc: "Content of the block",
+                type: "text",
+                value: "",
               },
             ],
           },
@@ -265,6 +311,8 @@ export const actions = {
               {
                 name: "body",
                 desc: "Comment body",
+                type: "text",
+                value: "",
               },
             ],
           },
@@ -277,6 +325,8 @@ export const actions = {
               {
                 name: "commentId",
                 desc: "Comment id to delete",
+                type: "number",
+                value: "",
               },
             ],
           },
@@ -289,12 +339,38 @@ export const actions = {
               {
                 name: "commentId",
                 desc: "Comment id to update",
+                type: "number",
+                value: "",
               },
               {
                 name: "body",
                 desc: "Updated comment",
+                type: "text",
+                value: "",
               },
             ],
+          },
+        ];
+      case "user":
+        return [
+          { name: "get", desc: "Get user details", auth: false, method: "GET" },
+          {
+            name: "channel",
+            desc: "Get the user's channel",
+            auth: false,
+            method: "GET",
+          },
+          {
+            name: "following",
+            desc: "Get the user's following",
+            auth: false,
+            method: "GET",
+          },
+          {
+            name: "followers",
+            desc: "Get the user's followers",
+            auth: false,
+            method: "GET",
           },
         ];
     }
@@ -302,22 +378,30 @@ export const actions = {
 };
 
 export const pagination = [
-  { name: "sort", value: "position", desc: "The field to sort results by." },
+  {
+    name: "sort",
+    value: "position",
+    desc: "The field to sort results by.",
+    type: "text",
+  },
   {
     name: "direction",
     value: "desc",
     options: ["asc", "desc"],
     desc: "The direction of returned results.",
+    type: "text",
   },
   {
     name: "per",
     value: 50,
     desc: "Number of items returned per page. Maximum of 100.",
+    type: "number",
   },
   {
     name: "page",
     value: 0,
     desc: "The page to fetch. Based on the per attribute. If per is set to 50, page 2 will return blocks 50-100",
+    type: "number",
   },
   {
     name: "forceRefresh",

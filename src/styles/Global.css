@@ -42,7 +42,12 @@ input {
   color: var(--color-2);
   border: 2px solid var(--color-2);
   padding: calc(var(--padding) / 4);
-  margin: 10px 0;
+  width: 100%;
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
+
+  margin: var(--margin) 20px var(--margin) 20px;
 }
 
 button {

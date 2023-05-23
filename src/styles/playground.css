@@ -64,3 +64,43 @@
 .show {
   opacity: 1;
 }
+.drop-down-child {
+  cursor: pointer;
+  background-color: var(--color-1);
+  color: var(--color-2);
+  border: 2px solid var(--color-2);
+  padding: calc(var(--padding) / 4);
+  width: 100%;
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
+  margin: 0 20px 0 20px;
+}
+
+.drop-down {
+  cursor: pointer;
+  background-color: var(--color-1);
+  color: var(--color-2);
+  border: 2px solid var(--color-2);
+  padding: calc(var(--padding) / 4);
+  width: 100%;
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
+  margin: var(--margin) 20px 0 20px;
+}
+
+.drop-down-child:hover {
+  background-color: var(--color-2);
+  color: var(--color-1);
+}
+
+.paginate-title {
+  border: 1px solid var(--color-2);
+  padding: 10px;
+}
+
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+}

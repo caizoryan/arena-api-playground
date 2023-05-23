@@ -33,6 +33,7 @@ type Options = {
   or: boolean;
   value: string;
   options?: string[];
+  type?: "text" | "number";
 };
 
 type Query = {

@@ -1,27 +1,26 @@
 import { Component, For } from "solid-js";
 import { pagination } from "../../../../Store/Data";
+import "../../../../styles/playground.css";
+import { OptionBlock } from "./Options";
 
 const Pagination: Component = () => {
   return (
     <>
       <div>Pagination</div>
-      <For each={pagination}>
-        {(options) => {
-          if (options.options) {
-            return <p>{options.name}</p>;
-          } else {
-            return (
-              <p>
-                {options.name} :{" "}
-                <input
-                  value={options.value}
-                  onInput={(e) => (options.value = e.currentTarget.value)}
-                ></input>
-              </p>
-            );
-          }
-        }}
-      </For>
+      <div class="options-container">
+        <For each={pagination}>
+          {(options) => (
+            <OptionBlock
+              name={options.name}
+              desc={options.desc}
+              value={options.value}
+              options={options.options}
+              type={options.type ? options.type : undefined}
+              select={(select: string) => (options.value = select)}
+            ></OptionBlock>
+          )}
+        </For>
+      </div>
     </>
   );
 };
