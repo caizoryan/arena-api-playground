@@ -7,8 +7,8 @@ import { arena } from "../components/Main/Playground/Playground";
 
 export const endpoint = {
   use: (endpoint: string) => {
-    if (endpoint === "channels" || endpoint === "me")
-      nextState("end", endpoint);
+    if (endpoint === "me") nextState("end", endpoint);
+    else if (endpoint === "search") nextState("action", endpoint);
     else nextState("slug", endpoint);
   },
   available: () => {
@@ -17,6 +17,11 @@ export const endpoint = {
         name: "me",
         description: "Get authenticated user details",
         auth: true,
+      },
+      {
+        name: "search",
+        description: "Search for blocks, users or channels",
+        auth: false,
       },
       {
         name: "user",
@@ -355,8 +360,8 @@ export const actions = {
         return [
           { name: "get", desc: "Get user details", auth: false, method: "GET" },
           {
-            name: "channel",
-            desc: "Get the user's channel",
+            name: "channels",
+            desc: "Get the user's channels",
             auth: false,
             method: "GET",
           },
@@ -370,6 +375,29 @@ export const actions = {
             name: "followers",
             desc: "Get the user's followers",
             auth: false,
+            method: "GET",
+          },
+        ];
+      case "search":
+        return [
+          {
+            name: "everything",
+            desc: "Search for all blocks, channels or users",
+            method: "GET",
+          },
+          {
+            name: "channels",
+            desc: "Search for only channels",
+            method: "GET",
+          },
+          {
+            name: "blocks",
+            desc: "Search for only blocks",
+            method: "GET",
+          },
+          {
+            name: "users",
+            desc: "Search for only users",
             method: "GET",
           },
         ];

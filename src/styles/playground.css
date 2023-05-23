@@ -43,6 +43,7 @@
   color: var(--color-2);
 
   transition: ease-in-out all 100ms;
+  text-overflow: wrap;
 }
 
 .select:hover {
