@@ -25,6 +25,7 @@ export type Query = {
   endpoint: string;
   slug: string;
   action: string;
+  method: string;
   options: Options[];
   pagination: [];
 };

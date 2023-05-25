@@ -24,7 +24,8 @@ const Options: Component = () => {
 
       <button
         onClick={() => {
-          nextState("pagination", "");
+          if (query.method === "GET") nextState("pagination", "");
+          else nextState("end", "");
         }}
       >
         Next

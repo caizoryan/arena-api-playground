@@ -2,6 +2,7 @@ import { State, Query, History } from "../Types/types";
 import { createSignal } from "solid-js";
 import { createMutable } from "solid-js/store";
 import { TOKEN } from "../env";
+import { refreshQuery } from "../components/Main/Playground/Querybuilder/QueryDisplay";
 
 export const [state, setState] = createSignal<State>("endpoint");
 
@@ -13,6 +14,7 @@ export const query = createMutable<Query>({
   endpoint: "",
   slug: "",
   action: "",
+  method: "",
   options: [],
   pagination: [],
 });
@@ -21,6 +23,7 @@ export function nextState(_state: State, query: string) {
   let ref = setQuery(query);
   history.push({ state: state(), query: ref });
   setState(_state);
+  refreshQuery();
 }
 
 function setQuery(q: string): State {
@@ -46,10 +49,12 @@ function setQuery(q: string): State {
 export const GoBack = () => {
   let last = history[history.length - 1];
   setState(last.state);
+  if (last.query === "action") query.method = "";
   if (last.query === "end") null;
   else if (last.query === "options" || last.query === "pagination") null;
   else query[last.query] = "";
   history.pop();
+  refreshQuery();
 };
 
 export function sendRequest() {

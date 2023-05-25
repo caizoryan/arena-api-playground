@@ -4,17 +4,17 @@ import Slug from "./Slug";
 import Action from "./Action";
 import Options from "./Options";
 import Pagination from "./Pagination";
-import { state, sendRequest, GoBack, query } from "../../../../Store/State";
+import { state, sendRequest, GoBack } from "../../../../Store/State";
 import "../../../../styles/playground.css";
-
-const domain = "https://api.are.na/v2/";
+import { QueryDisplay } from "./QueryDisplay";
+import { arena } from "../Playground";
 
 // Set and save token for authentication
 // Select What first (channel/block/etc)
 // Select slug if applicable
 // Select what to do with it
 // Select pagination option
-//
+
 // See results
 
 const QueryBuilder: Component = () => {
@@ -26,13 +26,7 @@ const QueryBuilder: Component = () => {
         </span>
       </Show>
       <h1>Query Builder</h1>
-      <div class="query">
-        <div class="domain">
-          {`fetch("${domain}${query.endpoint}${
-            query.slug != "" ? "/" + query.slug : ""
-          }").then((res) => console.log(res))`}
-        </div>
-      </div>
+      <QueryDisplay></QueryDisplay>
       <Switch>
         <Match when={state() === "endpoint"}>
           <Endpoint />

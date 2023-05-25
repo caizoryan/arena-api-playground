@@ -1,6 +1,6 @@
 import { Component, For } from "solid-js";
-import { Select } from "./QueryBuilder";
 import { endpoint } from "../../../../Store/Data";
+import Select from "../../../Babies/Select";
 
 const Endpoint: Component = () => {
   return (

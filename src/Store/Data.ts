@@ -1,8 +1,4 @@
-import {
-  nextState,
-  query,
-} from "../components/Main/Playground/Querybuilder/QueryBuilder";
-
+import { query, nextState } from "./State";
 import { arena } from "../components/Main/Playground/Playground";
 
 export const endpoint = {
@@ -91,8 +87,15 @@ export const slug = {
 };
 
 export const actions = {
-  use: (action: string) => nextState("options", action),
-  avalilable: () => {
+  use: (action: any) => {
+    if (action.options) {
+      nextState("options", action.name);
+      query.options = action.options;
+      query.method = action.method;
+    } else if (action.method != "GET") nextState("end", action.name);
+    else nextState("pagination", action.name);
+  },
+  avalilable: (): any[] => {
     switch (query.endpoint) {
       case "channel":
         return [
@@ -101,6 +104,9 @@ export const actions = {
             desc: "Change the position a block or a channel in selected channel",
             auth: true,
             method: "PUT",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug + "/" + "sort";
+            },
             options: [
               {
                 name: "id",
@@ -127,6 +133,11 @@ export const actions = {
             desc: "Connect a block or a channel to the selected channel",
             auth: true,
             method: "POST",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "connections"
+              );
+            },
             options: [
               {
                 name: "id",
@@ -147,17 +158,44 @@ export const actions = {
             desc: "Disconnect and existing block or a channel in selected channel",
             auth: true,
             method: "POST",
+            url: () => {
+              if (
+                query.options.find((option) => option.name === "type")
+                  ?.value === "block"
+              )
+                return (
+                  domain +
+                  query.endpoint +
+                  "/" +
+                  query.slug +
+                  "/" +
+                  "blocks" +
+                  "/" +
+                  query.options.find((option) => option.name === "id")?.value
+                );
+              else if (
+                query.options.find((option) => option.name === "type")
+                  ?.value === "connectionId"
+              )
+                return (
+                  domain +
+                  "connections" +
+                  "/" +
+                  query.options.find((option) => option.name === "id")?.value
+                );
+              else return "";
+            },
             options: [
               {
                 name: "id",
-                desc: "The id of the block or channel to be disconnected",
+                desc: "The id of the block or the id of the connection",
                 type: "number",
                 value: "",
               },
               {
                 name: "type",
-                desc: "select channel or block",
-                options: ["channel", "block"],
+                desc: "id of the block or connection?",
+                options: ["block", "connectionId"],
                 value: "",
               },
             ],
@@ -166,19 +204,33 @@ export const actions = {
             name: "contents",
             desc: "Returns the contents of the selected channel",
             auth: false,
+
             method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "contents"
+              );
+            },
           },
           {
             name: "connections",
             desc: "Returns all channels the selected channel appears in",
             auth: false,
             method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "connections"
+              );
+            },
           },
           {
             name: "create",
             desc: "Create a new channel",
             auth: true,
             method: "POST",
+            url: () => {
+              return domain + query.endpoint;
+            },
             options: [
               {
                 name: "title",
@@ -200,6 +252,9 @@ export const actions = {
             desc: "Update channel title and visibility",
             auth: true,
             method: "PUT",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug;
+            },
             options: [
               {
                 name: "title",
@@ -221,6 +276,11 @@ export const actions = {
             desc: "Create a block in the channel",
             auth: true,
             method: "POST",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "blocks"
+              );
+            },
             options: [
               {
                 name: "source",
@@ -247,18 +307,27 @@ export const actions = {
             desc: "Get all channel details",
             auth: false,
             method: "GET",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug;
+            },
           },
           {
             name: "delete",
             desc: "Delete the channel",
             auth: true,
             method: "DELETE",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug;
+            },
           },
           {
             name: "thumb",
             desc: "Get thumbnail details",
             auth: true,
             method: "GET",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug + "/" + "thumb";
+            },
           },
         ];
       case "block":
@@ -268,12 +337,20 @@ export const actions = {
             desc: "Get all the channels the block appears in",
             auth: false,
             method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "channels"
+              );
+            },
           },
           {
             name: "update",
             desc: "Update the tile, description and contents of the block",
             auth: true,
             method: "PUT",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug;
+            },
             options: [
               {
                 name: "title",
@@ -300,18 +377,31 @@ export const actions = {
             desc: "Get block details",
             auth: false,
             method: "GET",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug;
+            },
           },
           {
             name: "comments",
             desc: "Get comments on the block",
             auth: false,
             method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "comments"
+              );
+            },
           },
           {
             name: "addComment",
             desc: "Add a comment to selected block",
             auth: true,
             method: "POST",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "comments"
+              );
+            },
             options: [
               {
                 name: "body",
@@ -326,6 +416,11 @@ export const actions = {
             desc: "Delete a comment on selected block",
             auth: true,
             method: "DELETE",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "comments"
+              );
+            },
             options: [
               {
                 name: "commentId",
@@ -340,6 +435,11 @@ export const actions = {
             desc: "Update comment on selected block",
             auth: true,
             method: "PUT",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "comments"
+              );
+            },
             options: [
               {
                 name: "commentId",
@@ -358,24 +458,47 @@ export const actions = {
         ];
       case "user":
         return [
-          { name: "get", desc: "Get user details", auth: false, method: "GET" },
+          {
+            name: "get",
+            desc: "Get user details",
+            auth: false,
+            method: "GET",
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug;
+            },
+          },
           {
             name: "channels",
             desc: "Get the user's channels",
             auth: false,
             method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "channels"
+              );
+            },
           },
           {
             name: "following",
             desc: "Get the user's following",
             auth: false,
             method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "following"
+              );
+            },
           },
           {
             name: "followers",
             desc: "Get the user's followers",
             auth: false,
             method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "followers"
+              );
+            },
           },
         ];
       case "search":
@@ -384,26 +507,74 @@ export const actions = {
             name: "everything",
             desc: "Search for all blocks, channels or users",
             method: "GET",
+            use: () => {
+              return domain + query.endpoint;
+            },
           },
           {
             name: "channels",
             desc: "Search for only channels",
             method: "GET",
+            use: () => {
+              return domain + query.endpoint + "/" + "channels";
+            },
           },
           {
             name: "blocks",
             desc: "Search for only blocks",
             method: "GET",
+            use: () => {
+              return domain + query.endpoint + "/" + "blocks";
+            },
           },
           {
             name: "users",
             desc: "Search for only users",
             method: "GET",
+            use: () => {
+              return domain + query.endpoint + "/" + "users";
+            },
+          },
+        ];
+      case "group":
+        return [
+          {
+            name: "get",
+            desc: "Get group details",
+            method: "GET",
+
+            url: () => {
+              return domain + query.endpoint + "/" + query.slug;
+            },
+          },
+          {
+            name: "channels",
+            desc: "Get all channels in the group",
+            method: "GET",
+            url: () => {
+              return (
+                domain + query.endpoint + "/" + query.slug + "/" + "channles"
+              );
+            },
+          },
+        ];
+      default:
+        return [
+          {
+            name: "get",
+            desc: "Get details",
+            method: "GET",
+
+            url: () => {
+              return domain + query.endpoint;
+            },
           },
         ];
     }
   },
 };
+
+const domain = "https://api.are.na/v2/";
 
 export const pagination = [
   {
@@ -428,7 +599,7 @@ export const pagination = [
   {
     name: "page",
     value: 0,
-    desc: "The page to fetch. Based on the per attribute. If per is set to 50, page 2 will return blocks 50-100",
+    desc: "The page to fetch.",
     type: "number",
   },
   {

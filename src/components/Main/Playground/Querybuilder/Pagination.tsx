@@ -1,7 +1,7 @@
 import { Component, For } from "solid-js";
 import { pagination } from "../../../../Store/Data";
 import "../../../../styles/playground.css";
-import { OptionBlock } from "./Options";
+import { OptionBlock } from "../../../Babies/OptionBlock";
 
 const Pagination: Component = () => {
   return (

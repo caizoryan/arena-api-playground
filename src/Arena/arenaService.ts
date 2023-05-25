@@ -257,7 +257,7 @@ export class ArenaClient implements ArenaApi {
       create: (status?: ChannelStatus): Promise<CreateChannelApiResponse> => {
         return this.postJson("channels", {
           title: slug,
-          status,
+          status: status,
         });
       },
       update: (data: {

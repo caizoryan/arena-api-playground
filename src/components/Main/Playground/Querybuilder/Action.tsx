@@ -1,14 +1,8 @@
 import { Component, For } from "solid-js";
-import { nextState, query, Select } from "./QueryBuilder";
+import Select from "../../../Babies/Select";
 import { actions } from "../../../../Store/Data";
 
 const Action: Component = () => {
-  function handleClick(action: any) {
-    if (action.options) {
-      nextState("options", action.name);
-      query.options = action.options;
-    } else nextState("pagination", action.name);
-  }
   return (
     <>
       <div>Choose an action</div>
@@ -18,7 +12,7 @@ const Action: Component = () => {
             <Select
               name={action.name}
               desc={action.desc}
-              select={() => handleClick(action)}
+              select={() => actions.use(action)}
             ></Select>
           )}
         </For>
