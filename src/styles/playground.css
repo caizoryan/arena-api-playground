@@ -31,11 +31,11 @@
 }
 
 .select {
-  width: 200px;
-  height: 200px;
+  width: var(--block-size);
+  height: var(--block-size);
   --margin: calc(var(--padding) / 3);
   position: relative;
-  border: 1px solid var(--color-2);
+  border: 2px solid var(--color-2);
   margin: var(--margin) 20px var(--margin) 0;
   cursor: pointer;
 
@@ -48,6 +48,8 @@
 
 .select:hover {
   border: 2px solid var(--color-2);
+  transform: scale(1.05);
+  box-shadow: 1px 1px 30px 40px rgba(0, 0, 0, 0.3);
 }
 
 .select-name {

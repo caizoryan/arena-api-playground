@@ -1,8 +1,12 @@
 import { State, Query, History } from "../Types/types";
-import { createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import { createMutable } from "solid-js/store";
 import { TOKEN } from "../env";
-import { refreshQuery } from "../components/Main/Playground/Querybuilder/QueryDisplay";
+import {
+  refreshQuery,
+  url,
+} from "../components/Main/Playground/Querybuilder/QueryDisplay";
+import { pagination } from "./Data";
 
 export const [state, setState] = createSignal<State>("endpoint");
 
@@ -49,9 +53,15 @@ function setQuery(q: string): State {
 export const GoBack = () => {
   let last = history[history.length - 1];
   setState(last.state);
-  if (last.query === "action") query.method = "";
+  if (last.query === "action") {
+    query.options = [];
+    query.method = "";
+  }
   if (last.query === "end") null;
-  else if (last.query === "options" || last.query === "pagination") null;
+  else if (last.query === "options")
+    query.options.forEach((opt) => (opt.value = ""));
+  else if (last.query === "pagination")
+    query.pagination = structuredClone(pagination);
   else query[last.query] = "";
   history.pop();
   refreshQuery();
@@ -68,8 +78,20 @@ export function sendRequest() {
     Authorization: `Bearer ${TOKEN}`,
   };
 
-  fetch(`${domain}${query.endpoint}/${end}`, {
-    method: "GET",
+  console.log(query.method);
+  console.log(url());
+  console.log(query.method);
+
+  fetch(`${url()}`, {
+    method: query.method,
     headers: headers,
   }).then((res) => console.log(res.json()));
+
+  // fetch("https://api.are.na/v2/channel/fetch-css-test", {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: "Bearer uD5qI_IeG1MPnRFHlqPR4d1dugH88CEqh--pHtcYXrs",
+  //   },
+  //   method: "GET",
+  // }).then((res) => console.log(res));
 }

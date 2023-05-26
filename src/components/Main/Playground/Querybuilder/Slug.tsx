@@ -34,35 +34,37 @@ const Slug: Component = () => {
       });
   }
 
-  createEffect(() => {
-    console.log(searchResults());
-  });
-  createEffect(() => {
-    console.log(term());
-  });
-
   let ref: HTMLInputElement;
   const [active, setActive] = createSignal(false);
+  createEffect(() => {
+    if (query.endpoint === "group") setActive(true);
+  });
 
   //TODO remove search capability for groups
 
   return (
     <>
       <div class="inline">
-        <div style={active() ? "opacity: .4" : "opacity: 1.0"}>
-          <div>
-            Search for the {slug.available()?.noun} for your {query.endpoint}
+        <Show when={query.endpoint != "group"}>
+          <div style={active() ? "opacity: .4" : "opacity: 1.0"}>
+            <div>
+              Search for the {slug.available()?.noun} for your {query.endpoint}
+            </div>
+            <input
+              type="text"
+              onInput={(e) => setTerm(e.currentTarget.value)}
+              onFocus={() => setActive(false)}
+            ></input>
           </div>
-          <input
-            type="text"
-            onInput={(e) => setTerm(e.currentTarget.value)}
-            onFocus={() => setActive(false)}
-          ></input>
-        </div>
-        <Space d={{ w: "40px", h: "10px" }} />
+          <Space d={{ w: "40px", h: "10px" }} />
+        </Show>
         <div style={active() ? "opacity: 1" : "opacity: 0.4"}>
-          <div>or enter the {slug.available().noun} if you already know it</div>
-          <Show when={query.endpoint === "channel"}>
+          <div>
+            {query.endpoint === "group"
+              ? `enter the slug of the group`
+              : `or enter the ${slug.available().noun} if you already know it`}
+          </div>
+          <Show when={query.endpoint === "channels"}>
             <p>
               Note: if you want to create a channel, enter the title of the
               channel here.
@@ -90,7 +92,7 @@ const Slug: Component = () => {
 const Results: Component<{ result: any }> = (props) => {
   return (
     <Switch>
-      <Match when={query.endpoint === "channel"}>
+      <Match when={query.endpoint === "channels"}>
         <Select
           name={props.result.title}
           desc={props.result.slug}

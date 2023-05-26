@@ -1,6 +1,7 @@
 import { Component, For } from "solid-js";
 import Select from "../../../Babies/Select";
 import { actions } from "../../../../Store/Data";
+import { query } from "../../../../Store/State";
 
 const Action: Component = () => {
   return (
@@ -12,7 +13,9 @@ const Action: Component = () => {
             <Select
               name={action.name}
               desc={action.desc}
-              select={() => actions.use(action)}
+              select={() => {
+                actions.use(action);
+              }}
             ></Select>
           )}
         </For>

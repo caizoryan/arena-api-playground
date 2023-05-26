@@ -21,11 +21,19 @@ export type Options = {
   type?: "text" | "number";
 };
 
+type PaginationOption = {
+  name: string;
+  value: string | number;
+  desc: string;
+  type: string;
+  options: string[];
+};
+
 export type Query = {
   endpoint: string;
   slug: string;
   action: string;
   method: string;
   options: Options[];
-  pagination: [];
+  pagination: PaginationOption[];
 };

@@ -1,6 +1,8 @@
 import { query, nextState } from "./State";
 import { arena } from "../components/Main/Playground/Playground";
 
+const domain = "https://api.are.na/v2/";
+
 export const endpoint = {
   use: (endpoint: string) => {
     if (endpoint === "me") nextState("end", endpoint);
@@ -35,7 +37,7 @@ export const endpoint = {
         auth: false,
       },
       {
-        name: "channel",
+        name: "channels",
         description: "Access channels using a channel slug",
         auth: false,
       },
@@ -47,7 +49,7 @@ export const slug = {
   use: (slug: string) => nextState("action", slug),
   available: () => {
     switch (query.endpoint) {
-      case "channel":
+      case "channels":
         return {
           type: "text",
           search: arena.search.channels,
@@ -88,16 +90,16 @@ export const slug = {
 
 export const actions = {
   use: (action: any) => {
+    query.method = action.method;
     if (action.options) {
       nextState("options", action.name);
       query.options = action.options;
-      query.method = action.method;
     } else if (action.method != "GET") nextState("end", action.name);
     else nextState("pagination", action.name);
   },
   avalilable: (): any[] => {
     switch (query.endpoint) {
-      case "channel":
+      case "channels":
         return [
           {
             name: "sort",
@@ -140,13 +142,13 @@ export const actions = {
             },
             options: [
               {
-                name: "id",
-                desc: "The id of the block or channel to be disconnected",
+                name: "connectable_id",
+                desc: "The id of the block or channel to be connected",
                 type: "number",
                 value: "",
               },
               {
-                name: "type",
+                name: "connectable_type",
                 desc: "select channel or block",
                 options: ["channel", "block"],
                 value: "",
@@ -204,7 +206,6 @@ export const actions = {
             name: "contents",
             desc: "Returns the contents of the selected channel",
             auth: false,
-
             method: "GET",
             url: () => {
               return (
@@ -507,33 +508,100 @@ export const actions = {
             name: "everything",
             desc: "Search for all blocks, channels or users",
             method: "GET",
-            use: () => {
-              return domain + query.endpoint;
+            url: () => {
+              return (
+                domain +
+                query.endpoint +
+                "/" +
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
+                }`
+              );
             },
+            options: [
+              {
+                name: "query",
+                desc: "What you want to search for",
+                type: "text",
+                value: "",
+              },
+            ],
           },
           {
             name: "channels",
             desc: "Search for only channels",
             method: "GET",
-            use: () => {
-              return domain + query.endpoint + "/" + "channels";
+            url: () => {
+              return (
+                domain +
+                query.endpoint +
+                "/" +
+                "channels" +
+                "/" +
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
+                }`
+              );
             },
+            options: [
+              {
+                name: "query",
+                desc: "What you want to search for",
+                type: "text",
+                value: "",
+              },
+            ],
           },
+          // TODO check for undefined in search term
           {
             name: "blocks",
             desc: "Search for only blocks",
             method: "GET",
-            use: () => {
-              return domain + query.endpoint + "/" + "blocks";
+            url: () => {
+              return (
+                domain +
+                query.endpoint +
+                "/" +
+                "blocks" +
+                "/" +
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
+                }`
+              );
             },
+            options: [
+              {
+                name: "query",
+                desc: "What you want to search for",
+                type: "text",
+                value: "",
+              },
+            ],
           },
           {
             name: "users",
             desc: "Search for only users",
             method: "GET",
-            use: () => {
-              return domain + query.endpoint + "/" + "users";
+            url: () => {
+              return (
+                domain +
+                query.endpoint +
+                "/" +
+                "users" +
+                "/" +
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
+                }`
+              );
             },
+            options: [
+              {
+                name: "query",
+                desc: "What you want to search for",
+                type: "text",
+                value: "",
+              },
+            ],
           },
         ];
       case "group":
@@ -542,7 +610,6 @@ export const actions = {
             name: "get",
             desc: "Get group details",
             method: "GET",
-
             url: () => {
               return domain + query.endpoint + "/" + query.slug;
             },
@@ -553,7 +620,7 @@ export const actions = {
             method: "GET",
             url: () => {
               return (
-                domain + query.endpoint + "/" + query.slug + "/" + "channles"
+                domain + query.endpoint + "/" + query.slug + "/" + "channels"
               );
             },
           },
@@ -564,7 +631,6 @@ export const actions = {
             name: "get",
             desc: "Get details",
             method: "GET",
-
             url: () => {
               return domain + query.endpoint;
             },
@@ -573,8 +639,6 @@ export const actions = {
     }
   },
 };
-
-const domain = "https://api.are.na/v2/";
 
 export const pagination = [
   {
