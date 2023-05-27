@@ -9,7 +9,10 @@ const Authenticate: Component = () => {
     <Show when={!hide()}>
       <div>
         <p>
-          Enter your token, find it <a href="">here</a>
+          Enter your token, find it{" "}
+          <a href="https://arena-token-gen.vercel.app/" target="_blank">
+            here
+          </a>
         </p>
         <input
           style="width: 300px"

@@ -8,6 +8,7 @@ import { state, sendRequest, goBack, history } from "../../../../Store/State";
 import "../../../../styles/playground.css";
 import { QueryDisplay } from "./QueryDisplay";
 import Authenticate from "./Authenticate";
+import Space from "../../../Space";
 
 // Set and save token for authentication
 // Select What first (channel/block/etc)
@@ -39,6 +40,7 @@ const QueryBuilder: Component = () => {
         )}
       </For>
       <button>{state()}</button>
+      <Space d={{ w: "0px", h: "15px" }}></Space>
       <Authenticate></Authenticate>
       <QueryDisplay></QueryDisplay>
       <Switch>

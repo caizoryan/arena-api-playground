@@ -27,6 +27,13 @@ h2 {
   font-size: 24px;
 }
 
+a {
+  all: unset;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
 p {
   font-size: 13px;
   line-height: 1.35em;
