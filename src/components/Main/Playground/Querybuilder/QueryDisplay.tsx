@@ -47,11 +47,27 @@ function findBody() {
   let tempBody: string[] = [];
   let options = query.options;
 
+  let bodyString = "";
+
+  for (let i = 0; i < body().length; i++) {
+    let x = body()[i];
+    if (x.length > 0) bodyString += x;
+    if (i != body().length - 1) bodyString += ",";
+  }
+
+  for (let i = 0; i < options.length; i++) {
+    let option = options[i];
+    if (option.value != "" && option.name != "comment_id") {
+      bodyString += `"${option.name}":"${option.value}"`;
+      if (i != options.length - 1) bodyString += ",";
+    }
+  }
+
   if (query.endpoint === "search") return [];
   if (options) {
     options.forEach((option) => {
-      option.value != ""
-        ? tempBody.push(`"${option.name}" : "${option.value}"`)
+      option.value != "" || option.name != "comment_id"
+        ? tempBody.push(`"${option.name}":"${option.value}"`)
         : null;
     });
     return tempBody;

@@ -37,7 +37,7 @@ const Slug: Component = () => {
   let ref: HTMLInputElement;
   const [active, setActive] = createSignal(false);
   createEffect(() => {
-    if (query.endpoint === "group") setActive(true);
+    if (query.endpoint === "groups") setActive(true);
   });
 
   //TODO remove search capability for groups
@@ -45,7 +45,7 @@ const Slug: Component = () => {
   return (
     <>
       <div class="inline">
-        <Show when={query.endpoint != "group"}>
+        <Show when={query.endpoint != "groups"}>
           <div style={active() ? "opacity: .4" : "opacity: 1.0"}>
             <div>
               Search for the {slug.available()?.noun} for your {query.endpoint}
@@ -60,7 +60,7 @@ const Slug: Component = () => {
         </Show>
         <div style={active() ? "opacity: 1" : "opacity: 0.4"}>
           <div>
-            {query.endpoint === "group"
+            {query.endpoint === "groups"
               ? `enter the slug of the group`
               : `or enter the ${slug.available().noun} if you already know it`}
           </div>
@@ -99,7 +99,7 @@ const Results: Component<{ result: any }> = (props) => {
           select={() => slug.use(props.result.slug)}
         />
       </Match>
-      <Match when={query.endpoint === "block"}>
+      <Match when={query.endpoint === "blocks"}>
         <Select
           name={props.result.title}
           desc={props.result.id}

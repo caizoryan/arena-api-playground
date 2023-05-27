@@ -5,8 +5,10 @@ const domain = "https://api.are.na/v2/";
 
 export const endpoint = {
   use: (endpoint: string) => {
-    if (endpoint === "me") nextState("end", endpoint);
-    else if (endpoint === "search") nextState("action", endpoint);
+    if (endpoint === "me") {
+      query.method = "GET";
+      nextState("pagination", endpoint);
+    } else if (endpoint === "search") nextState("action", endpoint);
     else nextState("slug", endpoint);
   },
   available: () => {
@@ -27,12 +29,12 @@ export const endpoint = {
         auth: false,
       },
       {
-        name: "block",
+        name: "blocks",
         description: "Access block based on block id",
         auth: false,
       },
       {
-        name: "group",
+        name: "groups",
         description: "Acess group details based on group slug",
         auth: false,
       },
@@ -56,7 +58,7 @@ export const slug = {
           end: "channels",
           noun: "slug",
         };
-      case "block":
+      case "blocks":
         return {
           type: "number",
           search: arena.search.blocks,
@@ -70,7 +72,7 @@ export const slug = {
           end: "users",
           noun: "id",
         };
-      case "group":
+      case "groups":
         return {
           type: "text",
           search: arena.search.channels,
@@ -331,7 +333,7 @@ export const actions = {
             },
           },
         ];
-      case "block":
+      case "blocks":
         return [
           {
             name: "channels",
@@ -419,12 +421,20 @@ export const actions = {
             method: "DELETE",
             url: () => {
               return (
-                domain + query.endpoint + "/" + query.slug + "/" + "comments"
+                domain +
+                query.endpoint +
+                "/" +
+                query.slug +
+                "/" +
+                "comments" +
+                "/" +
+                query.options.find((option) => option.name === "comment_id")
+                  ?.value
               );
             },
             options: [
               {
-                name: "commentId",
+                name: "comment_id",
                 desc: "Comment id to delete",
                 type: "number",
                 value: "",
@@ -438,12 +448,20 @@ export const actions = {
             method: "PUT",
             url: () => {
               return (
-                domain + query.endpoint + "/" + query.slug + "/" + "comments"
+                domain +
+                query.endpoint +
+                "/" +
+                query.slug +
+                "/" +
+                "comments" +
+                "/" +
+                query.options.find((option) => option.name === "comment_id")
+                  ?.value
               );
             },
             options: [
               {
-                name: "commentId",
+                name: "comment_id",
                 desc: "Comment id to update",
                 type: "number",
                 value: "",
@@ -604,7 +622,7 @@ export const actions = {
             ],
           },
         ];
-      case "group":
+      case "groups":
         return [
           {
             name: "get",

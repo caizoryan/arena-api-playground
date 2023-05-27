@@ -87,20 +87,16 @@ export function sendRequest() {
     if (i != body().length - 1) bodyString += ",";
   }
 
-  console.log(query.method);
-  console.log(url());
-  console.log(query.method);
-
-  if (query.method != "GET") {
+  if (query.method === "GET" || query.method === "DELETE") {
     fetch(`${url()}`, {
       method: query.method,
       headers: headers,
-      body: `{${bodyString}}`,
     }).then((res) => console.log(res.json()));
   } else {
     fetch(`${url()}`, {
       method: query.method,
       headers: headers,
+      body: `{${bodyString}}`,
     }).then((res) => console.log(res.json()));
   }
 
