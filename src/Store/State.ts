@@ -79,13 +79,11 @@ export function sendRequest() {
     Authorization: `Bearer ${TOKEN}`,
   };
 
-  let bodyString = "";
-
-  for (let i = 0; i < body().length; i++) {
-    let x = body()[i];
-    if (x.length > 0) bodyString += x;
-    if (i != body().length - 1) bodyString += ",";
-  }
+  // for (let i = 0; i < body().length; i++) {
+  //   let x = body()[i];
+  //   if (x.length > 0) bodyString += x;
+  //   if (i != body().length - 1) bodyString += ",";
+  // }
 
   if (query.method === "GET" || query.method === "DELETE") {
     fetch(`${url()}`, {
@@ -96,7 +94,7 @@ export function sendRequest() {
     fetch(`${url()}`, {
       method: query.method,
       headers: headers,
-      body: `{${bodyString}}`,
+      body: `{${body()}}`,
     }).then((res) => console.log(res.json()));
   }
 

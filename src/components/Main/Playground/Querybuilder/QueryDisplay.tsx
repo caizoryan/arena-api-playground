@@ -6,7 +6,7 @@ import { query, state } from "../../../../Store/State";
 const domain = "https://api.are.na/v2/";
 export const [url, setUrl] = createSignal(domain);
 const [method, setMethod] = createSignal("");
-export const [body, setBody] = createSignal<string[]>([]);
+export const [body, setBody] = createSignal<string>("");
 
 // TODO Query should refresh on every keystroke
 export function refreshQuery() {
@@ -44,35 +44,18 @@ function findUrl() {
 }
 
 function findBody() {
-  let tempBody: string[] = [];
   let options = query.options;
 
   let bodyString = "";
 
-  for (let i = 0; i < body().length; i++) {
-    let x = body()[i];
-    if (x.length > 0) bodyString += x;
-    if (i != body().length - 1) bodyString += ",";
-  }
-
   for (let i = 0; i < options.length; i++) {
     let option = options[i];
     if (option.value != "" && option.name != "comment_id") {
-      bodyString += `"${option.name}":"${option.value}"`;
-      if (i != options.length - 1) bodyString += ",";
+      bodyString += `"${option.name}":"${option.value}",`;
     }
   }
-
-  if (query.endpoint === "search") return [];
-  if (options) {
-    options.forEach((option) => {
-      option.value != "" || option.name != "comment_id"
-        ? tempBody.push(`"${option.name}":"${option.value}"`)
-        : null;
-    });
-    return tempBody;
-  }
-  return [];
+  if (query.endpoint === "search") return "";
+  return bodyString.substring(0, bodyString.length - 1);
 }
 
 function getPags() {
@@ -117,18 +100,15 @@ export const QueryDisplay: Component = () => {
               <br></br>
               {`method: "${method()}",`}
               <br></br>
-              <Show when={body().length > 0}>
+              <Show
+                when={
+                  body().length > 0 &&
+                  (query.method === "POST" || query.method === "PUT")
+                }
+              >
                 <>
                   {`body: {`}
-                  <For each={body()}>
-                    {(body) => (
-                      <>
-                        <br></br>
-                        {body + ","}
-                      </>
-                    )}
-                  </For>
-                  <br></br>
+                  {body()}
                   {`}`}
                   <br></br>
                 </>

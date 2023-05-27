@@ -114,7 +114,7 @@ export const actions = {
             options: [
               {
                 name: "id",
-                desc: "The id of the block or channel to be disconnected",
+                desc: "The id of the block or channel",
                 type: "number",
                 value: "",
               },
@@ -161,7 +161,7 @@ export const actions = {
             name: "disconnect",
             desc: "Disconnect and existing block or a channel in selected channel",
             auth: true,
-            method: "POST",
+            method: "DELETE",
             url: () => {
               if (
                 query.options.find((option) => option.name === "type")
@@ -437,39 +437,6 @@ export const actions = {
                 name: "comment_id",
                 desc: "Comment id to delete",
                 type: "number",
-                value: "",
-              },
-            ],
-          },
-          {
-            name: "updateComment",
-            desc: "Update comment on selected block",
-            auth: true,
-            method: "PUT",
-            url: () => {
-              return (
-                domain +
-                query.endpoint +
-                "/" +
-                query.slug +
-                "/" +
-                "comments" +
-                "/" +
-                query.options.find((option) => option.name === "comment_id")
-                  ?.value
-              );
-            },
-            options: [
-              {
-                name: "comment_id",
-                desc: "Comment id to update",
-                type: "number",
-                value: "",
-              },
-              {
-                name: "body",
-                desc: "Updated comment",
-                type: "text",
                 value: "",
               },
             ],
