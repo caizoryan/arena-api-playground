@@ -1,4 +1,5 @@
 import { Component, Switch, Match } from "solid-js";
+import { refreshQuery } from "../Main/Playground/Querybuilder/QueryDisplay";
 import { DropDown } from "./DropDown";
 
 export const OptionBlock: Component<{
@@ -29,7 +30,10 @@ export const OptionBlock: Component<{
             <input
               type={props.type}
               value={props.value}
-              onInput={(e) => props.select(e.currentTarget.value)}
+              onInput={(e) => {
+                props.select(e.currentTarget.value);
+                refreshQuery();
+              }}
             ></input>
           </Match>
         </Switch>

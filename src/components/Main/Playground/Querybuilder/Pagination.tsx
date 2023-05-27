@@ -27,7 +27,6 @@ const Pagination: Component = () => {
       </div>
       <button
         onClick={() => {
-          console.log(query.method);
           nextState("end", "");
         }}
       >

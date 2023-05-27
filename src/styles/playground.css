@@ -1,6 +1,11 @@
 .playground-container {
   padding: var(--padding);
-  max-width: 60vw;
+  width: 70vw;
+  position: fixed;
+  left: 25vw;
+  height: 100vh;
+  overflow-y: scroll;
+  padding-bottom: 200px;
 }
 
 .domain {

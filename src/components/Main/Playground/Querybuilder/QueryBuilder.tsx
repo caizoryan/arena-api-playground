@@ -1,13 +1,12 @@
-import { Component, Match, Show, Switch } from "solid-js";
+import { Component, createEffect, For, Match, Show, Switch } from "solid-js";
 import Endpoint from "./Endpoint";
 import Slug from "./Slug";
 import Action from "./Action";
 import Options from "./Options";
 import Pagination from "./Pagination";
-import { state, sendRequest, GoBack, history } from "../../../../Store/State";
+import { state, sendRequest, goBack, history } from "../../../../Store/State";
 import "../../../../styles/playground.css";
 import { QueryDisplay } from "./QueryDisplay";
-import { arena } from "../Playground";
 
 // Set and save token for authentication
 // Select What first (channel/block/etc)
@@ -16,16 +15,29 @@ import { arena } from "../Playground";
 // Select pagination option
 
 // See results
+//
+function goBackTo(stage: string) {
+  let lastStageCache = history[history.length - 1];
+  goBack();
+  if (lastStageCache.query != stage) goBackTo(stage);
+}
 
 const QueryBuilder: Component = () => {
   return (
     <div>
-      <Show when={history.length > 0}>
-        <span class="back" onClick={GoBack}>
-          {"<< Go back"}
-        </span>
-      </Show>
-      <h1>Query Builder</h1>
+      <For each={history}>
+        {(stage) => (
+          <button
+            style="opacity: .4"
+            onClick={() => {
+              goBackTo(stage.state);
+            }}
+          >
+            {stage.state}
+          </button>
+        )}
+      </For>
+      <button>{state()}</button>
       <QueryDisplay></QueryDisplay>
       <Switch>
         <Match when={state() === "endpoint"}>
@@ -44,13 +56,13 @@ const QueryBuilder: Component = () => {
           <Pagination />
         </Match>
         <Match when={state() === "end"}>
-          <p
+          <button
             onClick={() => {
               sendRequest();
             }}
           >
             Send Request
-          </p>
+          </button>
         </Match>
       </Switch>
     </div>

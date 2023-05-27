@@ -94,8 +94,8 @@ export const actions = {
   use: (action: any) => {
     query.method = action.method;
     if (action.options) {
-      nextState("options", action.name);
       query.options = action.options;
+      nextState("options", action.name);
     } else if (action.method != "GET") nextState("end", action.name);
     else nextState("pagination", action.name);
   },
@@ -113,21 +113,21 @@ export const actions = {
             },
             options: [
               {
-                name: "id",
+                name: "connectable_type",
+                desc: "select channel or block",
+                options: ["Channel", "Block"],
+                value: "",
+              },
+              {
+                name: "connectable_id",
                 desc: "The id of the block or channel",
                 type: "number",
                 value: "",
               },
               {
-                name: "position",
+                name: "new_position",
                 desc: "New position of the block or a channel in selected channel",
                 type: "number",
-                value: "",
-              },
-              {
-                name: "type",
-                desc: "select channel or block",
-                options: ["channel", "block"],
                 value: "",
               },
             ],
@@ -152,7 +152,7 @@ export const actions = {
               {
                 name: "connectable_type",
                 desc: "select channel or block",
-                options: ["channel", "block"],
+                options: ["Channel", "Block"],
                 value: "",
               },
             ],
@@ -223,6 +223,22 @@ export const actions = {
             url: () => {
               return (
                 domain + query.endpoint + "/" + query.slug + "/" + "connections"
+              );
+            },
+          },
+          {
+            name: "collaborators",
+            desc: "Returns the contents of the selected channel",
+            auth: false,
+            method: "GET",
+            url: () => {
+              return (
+                domain +
+                query.endpoint +
+                "/" +
+                query.slug +
+                "/" +
+                "collaborators"
               );
             },
           },

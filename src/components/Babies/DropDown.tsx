@@ -1,4 +1,5 @@
 import { Component, createSignal, Show, For } from "solid-js";
+import { refreshQuery } from "../Main/Playground/Querybuilder/QueryDisplay";
 
 export const DropDown: Component<{
   options: string[];
@@ -28,6 +29,7 @@ export const DropDown: Component<{
                 setSelected(option);
                 setShow(false);
                 props.select(selected());
+                refreshQuery();
               }}
             >
               {option}

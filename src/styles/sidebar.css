@@ -3,7 +3,9 @@
   /* height: 100vh; */
   color: var(--primary-color);
   padding: var(--padding);
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   transition: ease-in all 100ms;
 }
 
@@ -27,4 +29,10 @@
 .hide {
   background-color: var(--color-1);
   transform: translateX(calc(-20vw - var(--padding) - var(--padding)));
+}
+
+.solid-js {
+  position: fixed;
+  bottom: var(--padding);
+  left: var(--padding);
 }

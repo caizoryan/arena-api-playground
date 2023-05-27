@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
+    "solid-highlight": "^0.1.12",
+    "solid-icons": "^1.0.4",
     "solid-js": "^1.6.10"
   }
 }

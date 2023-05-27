@@ -22,7 +22,7 @@ export function refreshQuery() {
     setBody(findBody());
   }
 
-  if (state() === "end" && query.method === "GET")
+  if (state() === "pagination" && query.method === "GET")
     query.endpoint === "search"
       ? setUrl(url() + "&" + paginationString())
       : setUrl(url() + "?" + paginationString());
@@ -84,7 +84,18 @@ export const QueryDisplay: Component = () => {
       <div class="domain">
         <Switch>
           <Match when={query.action === ""}>
-            {`fetch("${url()}").then((res) => console.log(res))`}
+            {`fetch("${url()}")`}
+            <br></br>
+            {`headers: {`}
+            <br></br>
+            {`"Content-Type": "application/json",`}
+            <br></br>
+            {`Authorization: "Bearer ${TOKEN}"`}
+            <br></br>
+            {`}`}
+            {`}).then((res) => res.json())`}
+            <br></br>
+            {`.then((res) => console.log(res))`}
           </Match>
           <Match when={query.action != ""}>
             <>
@@ -113,7 +124,9 @@ export const QueryDisplay: Component = () => {
                   <br></br>
                 </>
               </Show>
-              {`}).then((res) => console.log(res.json()))`}
+              {`}).then((res) => res.json())`}
+              <br></br>
+              {`.then((res) => console.log(res))`}
             </>
           </Match>
         </Switch>

@@ -8,6 +8,11 @@ import {
   url,
 } from "../components/Main/Playground/Querybuilder/QueryDisplay";
 import { pagination } from "./Data";
+import {
+  setLoading,
+  setRequested,
+  setResponse,
+} from "../components/Main/Playground/ResponsePainter";
 
 export const [state, setState] = createSignal<State>("endpoint");
 
@@ -24,11 +29,11 @@ export const query = createMutable<Query>({
   pagination: [],
 });
 
-export function nextState(_state: State, query: string) {
+export function nextState(newState: State, query: string) {
   let ref = setQuery(query);
-  history.push({ state: state(), query: ref });
-  setState(_state);
   refreshQuery();
+  history.push({ state: state(), query: ref });
+  setState(newState);
 }
 
 function setQuery(q: string): State {
@@ -51,14 +56,14 @@ function setQuery(q: string): State {
   }
 }
 
-export const GoBack = () => {
+export const goBack = () => {
   let last = history[history.length - 1];
+  setRequested(false);
   setState(last.state);
   if (last.query === "action") {
     query.options = [];
     query.method = "";
-  }
-  if (last.query === "end") null;
+  } else if (last.query === "end") null;
   else if (last.query === "options")
     query.options.forEach((opt) => (opt.value = ""));
   else if (last.query === "pagination")
@@ -69,40 +74,35 @@ export const GoBack = () => {
 };
 
 export function sendRequest() {
-  const routes = [];
-  if (query.slug) routes.push(query.slug);
-  if (query.action) routes.push(query.action);
-  let end = routes.join("/");
+  setRequested(true);
+  setLoading(true);
 
   let headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${TOKEN}`,
   };
 
-  // for (let i = 0; i < body().length; i++) {
-  //   let x = body()[i];
-  //   if (x.length > 0) bodyString += x;
-  //   if (i != body().length - 1) bodyString += ",";
-  // }
-
   if (query.method === "GET" || query.method === "DELETE") {
     fetch(`${url()}`, {
       method: query.method,
       headers: headers,
-    }).then((res) => console.log(res.json()));
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setLoading(false);
+        setResponse(res);
+        console.log(res);
+      });
   } else {
     fetch(`${url()}`, {
       method: query.method,
       headers: headers,
       body: `{${body()}}`,
-    }).then((res) => console.log(res.json()));
+    }).then((res) => {
+      let response = res.json();
+      setLoading(false);
+      setResponse(response);
+      console.log(response);
+    });
   }
-
-  // fetch("https://api.are.na/v2/channel/fetch-css-test", {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: "Bearer uD5qI_IeG1MPnRFHlqPR4d1dugH88CEqh--pHtcYXrs",
-  //   },
-  //   method: "GET",
-  // }).then((res) => console.log(res));
 }

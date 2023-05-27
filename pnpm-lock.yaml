@@ -2,6 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   dotenv: ^16.0.3
+  solid-highlight: ^0.1.12
+  solid-icons: ^1.0.4
   solid-js: ^1.6.10
   typescript: ^4.9.5
   vite: ^4.1.1
@@ -9,6 +11,8 @@ specifiers:
 
 dependencies:
   dotenv: 16.0.3
+  solid-highlight: 0.1.12
+  solid-icons: 1.0.4_solid-js@1.6.10
   solid-js: 1.6.10
 
 devDependencies:
@@ -733,6 +737,11 @@ packages:
       function-bind: 1.1.1
     dev: true
 
+  /highlight.js/11.8.0:
+    resolution: {integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   /html-entities/2.3.2:
     resolution: {integrity: sha512-c3Ab/url5ksaT0WyleslpBEthOzWhrjQbg75y7XUsfSzi3Dgzt0l8w5e7DylRn15MTlMMD58dTfzddNS2kcAjQ==}
     dev: true
@@ -829,6 +838,23 @@ packages:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==}
     hasBin: true
     dev: true
+
+  /solid-highlight/0.1.12:
+    resolution: {integrity: sha512-1zTiNeuD8SDjil//wcdNGeYVrsgkhVdyHD65WBuO2SV33onTRHXZR8agH60Kpe9GcFmjDmz0UwKWj1zFXesnig==}
+    engines: {node: '>=10', yarn: '>=1.22.5'}
+    dependencies:
+      highlight.js: 11.8.0
+      solid-js: 1.6.10
+    dev: false
+
+  /solid-icons/1.0.4_solid-js@1.6.10:
+    resolution: {integrity: sha512-gJTp4in3+OYCs9WvDkSLt4Los2unR3Uoder8wjh15GsfP20xiNOLfPTJllXmn+fI8+k3x7bRYtLGIgWd9fUQug==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      solid-js: '*'
+    dependencies:
+      solid-js: 1.6.10
+    dev: false
 
   /solid-js/1.6.10:
     resolution: {integrity: sha512-Sf0e6PQCEFkFtbPq0L+93Ua81YQOefBEbvDJ0YXT92b6Lzw0k7UvzSd2l1BbYM+yzE3UmepU1tyMDc/3nIByjA==}

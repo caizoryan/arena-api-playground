@@ -1,0 +1,33 @@
+.box {
+  margin: 10px;
+  overflow: scroll;
+  padding: 30px;
+  position: relative;
+  border: 1px solid var(--color-2);
+  transition: ease-in all 30ms;
+}
+
+.box:hover {
+  transform: scale(1.02);
+}
+
+.box:hover p {
+  cursor: crosshair;
+  color: white;
+}
+
+.box-expanded {
+  margin: 10px 0;
+  width: 95%;
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid var(--color-2);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+}

@@ -164,7 +164,7 @@ export type Date = { now(): number };
 
 export class ArenaClient implements ArenaApi {
   private readonly domain = "https://api.are.na/v2/";
-  private readonly headers: HeadersInit;
+  private readonly headers: any;
   private readonly fetch: Fetch;
   private readonly date: Date;
 
@@ -181,6 +181,10 @@ export class ArenaClient implements ArenaApi {
     };
     this.fetch = config?.fetch || (window?.fetch.bind(window) as any as Fetch);
     this.date = config?.date || Date;
+  }
+
+  setToken(token: string) {
+    this.headers.Authorization = `Bearer ${token}`;
   }
 
   me() {

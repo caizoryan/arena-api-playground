@@ -3,16 +3,7 @@ import { createMutable } from "solid-js/store";
 import SectionTitle from "./SectionTitle";
 
 const Sections: Component = () => {
-  const sections = createMutable([
-    "API V2 / Playground",
-    "API V2 / Reference",
-    "Example / Vanilla",
-    "Example / JQuery",
-    "Example / Svelte",
-    "Example / Solid JS",
-    "Example / Vue",
-  ]);
-
+  const sections = createMutable(["API V2 / Playground", "Resources", "About"]);
   return <For each={sections}>{(title) => <SectionTitle title={title} />}</For>;
 };
 
