@@ -4,7 +4,7 @@ import Slug from "./Slug";
 import Action from "./Action";
 import Options from "./Options";
 import Pagination from "./Pagination";
-import { state, sendRequest, GoBack } from "../../../../Store/State";
+import { state, sendRequest, GoBack, history } from "../../../../Store/State";
 import "../../../../styles/playground.css";
 import { QueryDisplay } from "./QueryDisplay";
 import { arena } from "../Playground";
@@ -18,16 +18,6 @@ import { arena } from "../Playground";
 // See results
 
 const QueryBuilder: Component = () => {
-  fetch(
-    "https://api.are.na/v2/channels/fetch-css-test?per=50&sort=position&direction=desc",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer uD5qI_IeG1MPnRFHlqPR4d1dugH88CEqh--pHtcYXrs",
-      },
-      method: "GET",
-    }
-  ).then((res) => console.log(res.json()));
   return (
     <div>
       <Show when={history.length > 0}>

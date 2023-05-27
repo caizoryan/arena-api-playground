@@ -3,6 +3,7 @@ import { createEffect, createSignal } from "solid-js";
 import { createMutable } from "solid-js/store";
 import { TOKEN } from "../env";
 import {
+  body,
   refreshQuery,
   url,
 } from "../components/Main/Playground/Querybuilder/QueryDisplay";
@@ -10,7 +11,7 @@ import { pagination } from "./Data";
 
 export const [state, setState] = createSignal<State>("endpoint");
 
-const history: History[] = createMutable([]);
+export const history: History[] = createMutable([]);
 
 const domain = "https://api.are.na/v2/";
 
@@ -78,14 +79,30 @@ export function sendRequest() {
     Authorization: `Bearer ${TOKEN}`,
   };
 
+  let bodyString = "";
+
+  for (let i = 0; i < body().length; i++) {
+    let x = body()[i];
+    if (x.length > 0) bodyString += x;
+    if (i != body().length - 1) bodyString += ",";
+  }
+
   console.log(query.method);
   console.log(url());
   console.log(query.method);
 
-  fetch(`${url()}`, {
-    method: query.method,
-    headers: headers,
-  }).then((res) => console.log(res.json()));
+  if (query.method != "GET") {
+    fetch(`${url()}`, {
+      method: query.method,
+      headers: headers,
+      body: `{${bodyString}}`,
+    }).then((res) => console.log(res.json()));
+  } else {
+    fetch(`${url()}`, {
+      method: query.method,
+      headers: headers,
+    }).then((res) => console.log(res.json()));
+  }
 
   // fetch("https://api.are.na/v2/channel/fetch-css-test", {
   //   headers: {

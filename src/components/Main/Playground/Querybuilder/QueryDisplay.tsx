@@ -6,25 +6,22 @@ import { query, state } from "../../../../Store/State";
 const domain = "https://api.are.na/v2/";
 export const [url, setUrl] = createSignal(domain);
 const [method, setMethod] = createSignal("");
-const [body, setBody] = createSignal<string[]>([]);
+export const [body, setBody] = createSignal<string[]>([]);
 
-// TODO need to add query entry for search
-
+// TODO Query should refresh on every keystroke
 export function refreshQuery() {
-  // when endpoint is selected
   if (query.endpoint != "") setUrl(domain + query.endpoint);
   else setUrl(domain);
 
-  // when slug is selected
   if (query.slug != "") setUrl(url() + "/" + query.slug);
 
-  // when action is selected
   if (query.action != "") {
     setMethod(findMethod());
     let url = findUrl();
     url != "" ? setUrl(url) : null;
     setBody(findBody());
   }
+
   if (state() === "end" && query.method === "GET")
     query.endpoint === "search"
       ? setUrl(url() + "&" + paginationString())
@@ -53,8 +50,8 @@ function findBody() {
   if (query.endpoint === "search") return [];
   if (options) {
     options.forEach((option) => {
-      option.value
-        ? tempBody.push("'" + option.name + "' : '" + option.value + "'")
+      option.value != ""
+        ? tempBody.push(`"${option.name}" : "${option.value}"`)
         : null;
     });
     return tempBody;
@@ -67,6 +64,9 @@ function getPags() {
   for (const x of query.pagination) arr.push(x);
   return arr;
 }
+
+//TODO write case for forced refresh
+// --------------------------------
 
 function paginationString() {
   let [sort, direction, per, page, forceRefresh] = getPags();

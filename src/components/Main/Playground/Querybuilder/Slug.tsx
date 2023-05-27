@@ -106,7 +106,7 @@ const Results: Component<{ result: any }> = (props) => {
           select={() => slug.use(props.result.id)}
         />
       </Match>
-      <Match when={query.endpoint === "user"}>
+      <Match when={query.endpoint === "users"}>
         <Select
           name={props.result.username}
           desc={props.result.id}

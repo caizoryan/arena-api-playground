@@ -22,7 +22,7 @@ export const endpoint = {
         auth: false,
       },
       {
-        name: "user",
+        name: "users",
         description: "Access user details based on user id",
         auth: false,
       },
@@ -63,7 +63,7 @@ export const slug = {
           end: "blocks",
           noun: "id",
         };
-      case "user":
+      case "users":
         return {
           type: "number",
           search: arena.search.users,
@@ -242,7 +242,7 @@ export const actions = {
               {
                 name: "status",
                 desc: "Status of the channel, private, closed or open",
-                options: ["private", "open", "closed"],
+                options: ["private", "public", "closed"],
                 type: "text",
                 value: "",
               },
@@ -266,7 +266,7 @@ export const actions = {
               {
                 name: "status",
                 desc: "Status of the channel, private, closed or open",
-                options: ["private", "open", "closed"],
+                options: ["private", "public", "closed"],
                 type: "text",
                 value: "",
               },
@@ -457,7 +457,7 @@ export const actions = {
             ],
           },
         ];
-      case "user":
+      case "users":
         return [
           {
             name: "get",

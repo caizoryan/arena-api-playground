@@ -411,6 +411,14 @@ export class ArenaClient implements ArenaApi {
   }
 
   private async putJson(endpoint: string, data?: unknown) {
+    let txt = `
+    this.fetch(${this.domain}${endpoint}, {
+      method: "PUT",
+      headers: ${this.headers},
+      body: ${JSON.stringify(data)},
+    }).then((res) => {console.log(res.json()))}
+`;
+    console.log(txt);
     return this.fetch(`${this.domain}${endpoint}`, {
       method: "PUT",
       headers: this.headers,
