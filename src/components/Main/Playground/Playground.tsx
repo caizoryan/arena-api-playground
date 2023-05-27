@@ -3,9 +3,8 @@ import "../../../styles/playground.css";
 import QueryBuilder from "../Playground/Querybuilder/QueryBuilder";
 import ResponsePainter from "./ResponsePainter";
 import { ArenaClient } from "../../../Arena/arenaService";
-import { TOKEN } from "../../../env";
 
-export const arena = new ArenaClient({ token: TOKEN });
+export const arena = new ArenaClient();
 
 const Playground: Component = () => {
   return (

@@ -32,6 +32,7 @@ type PaginationOption = {
 export type Query = {
   endpoint: string;
   slug: string;
+  token: string;
   action: string;
   method: string;
   options: Options[];

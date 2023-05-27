@@ -1,4 +1,4 @@
-import { Switch, Component, For, createSignal, Match, Show } from "solid-js";
+import { Switch, Component, createSignal, Match, Show } from "solid-js";
 import { TOKEN } from "../../../../env";
 import { actions } from "../../../../Store/Data";
 import { query, state } from "../../../../Store/State";
@@ -90,7 +90,7 @@ export const QueryDisplay: Component = () => {
             <br></br>
             {`"Content-Type": "application/json",`}
             <br></br>
-            {`Authorization: "Bearer ${TOKEN}"`}
+            {`Authorization: "Bearer ${query.token}"`}
             <br></br>
             {`}`}
             {`}).then((res) => res.json())`}
@@ -105,7 +105,7 @@ export const QueryDisplay: Component = () => {
               <br></br>
               {`"Content-Type": "application/json",`}
               <br></br>
-              {`Authorization: "Bearer ${TOKEN}",`}
+              {`Authorization: "Bearer ${query.token}",`}
               <br></br>
               {`},`}
               <br></br>

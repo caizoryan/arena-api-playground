@@ -7,6 +7,7 @@ import Pagination from "./Pagination";
 import { state, sendRequest, goBack, history } from "../../../../Store/State";
 import "../../../../styles/playground.css";
 import { QueryDisplay } from "./QueryDisplay";
+import Authenticate from "./Authenticate";
 
 // Set and save token for authentication
 // Select What first (channel/block/etc)
@@ -38,6 +39,7 @@ const QueryBuilder: Component = () => {
         )}
       </For>
       <button>{state()}</button>
+      <Authenticate></Authenticate>
       <QueryDisplay></QueryDisplay>
       <Switch>
         <Match when={state() === "endpoint"}>

@@ -1,7 +1,6 @@
 import { State, Query, History } from "../Types/types";
-import { createEffect, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import { createMutable } from "solid-js/store";
-import { TOKEN } from "../env";
 import {
   body,
   refreshQuery,
@@ -25,6 +24,7 @@ export const query = createMutable<Query>({
   slug: "",
   action: "",
   method: "",
+  token: "",
   options: [],
   pagination: [],
 });
@@ -79,7 +79,7 @@ export function sendRequest() {
 
   let headers = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${TOKEN}`,
+    Authorization: `Bearer ${query.token}`,
   };
 
   if (query.method === "GET" || query.method === "DELETE") {
@@ -98,11 +98,12 @@ export function sendRequest() {
       method: query.method,
       headers: headers,
       body: `{${body()}}`,
-    }).then((res) => {
-      let response = res.json();
-      setLoading(false);
-      setResponse(response);
-      console.log(response);
-    });
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setLoading(false);
+        setResponse(res);
+        console.log(res);
+      });
   }
 }
