@@ -1,5 +1,4 @@
 import { Switch, Component, createSignal, Match, Show } from "solid-js";
-import { TOKEN } from "../../../../env";
 import { actions } from "../../../../Store/Data";
 import { query, state } from "../../../../Store/State";
 
