@@ -47,8 +47,6 @@ const QueryBuilder: Component = () => {
         )}
       </For>
       <button>{state()}</button>
-      <Space d={{ w: "0px", h: "15px" }}></Space>
-      <Authenticate></Authenticate>
       <QueryDisplay></QueryDisplay>
       <Switch>
         <Match when={state() === "endpoint"}>

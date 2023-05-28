@@ -31,7 +31,7 @@
   transform: translateX(calc(-20vw - var(--padding) - var(--padding)));
 }
 
-.solid-js {
+.bottom {
   position: fixed;
   bottom: var(--padding);
   left: var(--padding);

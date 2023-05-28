@@ -5,6 +5,7 @@ import Space from "./Space";
 import Sections from "./Sections/Sections";
 import Toggle from "./Toggle";
 import { BiSolidHeart } from "solid-icons/bi";
+import { authenticated } from "../Store/State";
 
 // ----------------------------
 // How to make a website using are.na in plain js
@@ -22,9 +23,14 @@ const Sidebar: Component = () => {
       <Space d={{ w: "0", h: "20px" }} />
       <p class="intro-text"></p>
       <Sections />
-      <p class="solid-js">
-        Made with <BiSolidHeart /> in Solid JS
-      </p>
+      <div class="bottom">
+        <Show when={authenticated().auth == true}>
+          <p> Authenticated as {authenticated().user}</p>
+        </Show>
+        <p>
+          Made with <BiSolidHeart /> in Solid JS
+        </p>
+      </div>
     </div>
   );
 };

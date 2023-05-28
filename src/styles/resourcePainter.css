@@ -9,10 +9,6 @@
   transition: ease-in all 30ms;
 }
 
-.box:hover {
-  transform: scale(1.02);
-}
-
 .box:hover p {
   color: white;
 }
@@ -24,14 +20,14 @@
 
 .box-expanded {
   border-radius: 3px;
-  margin: 10px 0;
+  margin: 10px;
   width: 95%;
   cursor: pointer;
   display: flex;
-  /* flex-wrap: wrap; */
   flex-direction: column;
-  padding: 30px;
+  padding: 15px;
   border: 1px solid var(--color-2);
+  transition: ease-in all 30ms;
 }
 
 .container {
