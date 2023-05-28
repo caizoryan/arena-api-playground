@@ -21,15 +21,19 @@ const responseArray = createMemo(() => Object.entries(response()));
 const KeyArrayPair: Component<{ key: string; value: any[] }> = (props) => {
   const [expand, setExpand] = createSignal(false);
   return (
-    <div class={expand() ? "box-expanded" : "box"}>
+    <div
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          setExpand(!expand());
+        }
+      }}
+      class={expand() ? "box-expanded" : "box"}
+    >
       <Show when={!expand()}>
-        <p>{props.key} : [......]</p>
+        <p onClick={() => setExpand(!expand())}>{props.key} : [......]</p>
       </Show>
-      <button class="expand" onClick={() => setExpand(!expand())}>
-        {expand() ? "Collapse" : "Expand"}
-      </button>
       <Show when={expand()}>
-        <p> {props.key}: [ </p>
+        <p onClick={() => setExpand(!expand())}> {props.key}: [ </p>
         <For each={props.value}>
           {(dog, i) => (
             <KeyObject
@@ -60,15 +64,21 @@ const KeyObject: Component<{ key: string; value: any[] }> = (props) => {
   const [expand, setExpand] = createSignal(false);
   return (
     <>
-      <div class={expand() ? "box-expanded" : "box"}>
+      <div
+        onClick={(event) => {
+          if (event.target === event.currentTarget) {
+            setExpand(!expand());
+          }
+        }}
+        class={expand() ? "box-expanded" : "box"}
+      >
         <Show when={!expand()}>
-          <p>{props.key + " : {......}"}</p>
+          <p onClick={() => setExpand(!expand())}>
+            {props.key + " : {......}"}
+          </p>
         </Show>
-        <button class="expand" onClick={() => setExpand(!expand())}>
-          {expand() ? "Collapse" : "Expand"}
-        </button>
         <Show when={expand()}>
-          <p> {props.key + ": { "}</p>
+          <p onClick={() => setExpand(!expand())}> {props.key + ": { "}</p>
           <For each={props.value}>
             {(values) => {
               if (typeof values[1] === "string") {
@@ -114,6 +124,8 @@ const ResponsePainter: Component = () => {
       <Switch>
         <Match when={requested() && loading()}>Loading...</Match>
         <Match when={requested() && !loading()}>
+          <p style={"width: 100%"}>Click to expand or collapse</p>
+          <br></br>
           <KeyObject key="response" value={responseArray()}></KeyObject>
         </Match>
       </Switch>

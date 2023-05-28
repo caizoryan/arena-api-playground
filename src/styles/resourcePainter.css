@@ -1,4 +1,5 @@
 .box {
+  min-width: 300px;
   margin: 10px;
   overflow: scroll;
   padding: 15px;
@@ -13,7 +14,6 @@
 }
 
 .box:hover p {
-  cursor: crosshair;
   color: white;
 }
 
@@ -21,6 +21,7 @@
   border-radius: 3px;
   margin: 10px 0;
   width: 95%;
+  cursor: pointer;
   display: flex;
   /* flex-wrap: wrap; */
   flex-direction: column;
