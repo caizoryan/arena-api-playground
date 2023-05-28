@@ -4,7 +4,14 @@ import Slug from "./Slug";
 import Action from "./Action";
 import Options from "./Options";
 import Pagination from "./Pagination";
-import { state, sendRequest, goBack, history } from "../../../../Store/State";
+import {
+  state,
+  sendRequest,
+  goBack,
+  history,
+  authenticated,
+  query,
+} from "../../../../Store/State";
 import "../../../../styles/playground.css";
 import { QueryDisplay } from "./QueryDisplay";
 import Authenticate from "./Authenticate";
@@ -61,11 +68,16 @@ const QueryBuilder: Component = () => {
         </Match>
         <Match when={state() === "end"}>
           <button
+            style={
+              authRequired()
+                ? "color: rgba(230, 0, 0); border: 1.5px solid rgba(230, 0, 0)"
+                : ""
+            }
             onClick={() => {
-              sendRequest();
+              authRequired() ? null : sendRequest();
             }}
           >
-            Send Request
+            {authRequired() ? "Requires Authetication" : "Send Request"}
           </button>
         </Match>
       </Switch>
@@ -73,4 +85,9 @@ const QueryBuilder: Component = () => {
   );
 };
 
+function authRequired() {
+  return (
+    !authenticated().auth && (query.method !== "GET" || query.slug === "me")
+  );
+}
 export default QueryBuilder;

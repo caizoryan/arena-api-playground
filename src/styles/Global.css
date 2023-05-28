@@ -63,9 +63,13 @@ button {
   border: 2px solid var(--color-2);
   padding: calc(var(--padding) / 4);
   transition: ease-in-out all 100ms;
+  max-width: 100px;
+  margin: 10px 0;
+  border: 0.2px solid rgba(255, 255, 255, 0.2);
 }
 
 button:hover {
   background: var(--color-2);
   color: var(--color-1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }

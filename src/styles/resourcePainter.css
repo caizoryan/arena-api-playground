@@ -1,9 +1,10 @@
 .box {
   margin: 10px;
   overflow: scroll;
-  padding: 30px;
+  padding: 15px;
   position: relative;
-  border: 1px solid var(--color-2);
+  border: 0.4px solid var(--color-2);
+  border-radius: 5px;
   transition: ease-in all 30ms;
 }
 
@@ -17,6 +18,7 @@
 }
 
 .box-expanded {
+  border-radius: 3px;
   margin: 10px 0;
   width: 95%;
   display: flex;

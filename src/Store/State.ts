@@ -14,6 +14,10 @@ import {
 } from "../components/Main/Playground/ResponsePainter";
 
 export const [state, setState] = createSignal<State>("endpoint");
+export const [authenticated, setAuthenticated] = createSignal({
+  auth: false,
+  user: "",
+});
 
 export const history: History[] = createMutable([]);
 

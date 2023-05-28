@@ -64,12 +64,6 @@ const Slug: Component = () => {
               ? `enter the slug of the group`
               : `or enter the ${slug.available().noun} if you already know it`}
           </div>
-          <Show when={query.endpoint === "channels"}>
-            <p>
-              Note: if you want to create a channel, enter the title of the
-              channel here.
-            </p>
-          </Show>
           <input type="text" ref={ref!} onFocus={() => setActive(true)}></input>
           <button
             onClick={() => {

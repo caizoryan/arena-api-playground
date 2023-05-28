@@ -24,10 +24,10 @@ const KeyArrayPair: Component<{ key: string; value: any[] }> = (props) => {
     <div class={expand() ? "box-expanded" : "box"}>
       <Show when={!expand()}>
         <p>{props.key} : [......]</p>
-        <button class="expand" onClick={() => setExpand(true)}>
-          Expand
-        </button>
       </Show>
+      <button class="expand" onClick={() => setExpand(!expand())}>
+        {expand() ? "Collapse" : "Expand"}
+      </button>
       <Show when={expand()}>
         <p> {props.key}: [ </p>
         <For each={props.value}>
@@ -72,10 +72,12 @@ const KeyObject: Component<{ key: string; value: any[] }> = (props) => {
           <For each={props.value}>
             {(values) => {
               if (typeof values[1] === "string") {
+                return KeyStringPair({ key: values[0], value: values[1] });
+              } else if (typeof values[1] === "number") {
                 return (
                   <KeyStringPair
                     key={values[0]}
-                    value={values[1]}
+                    value={values[1].toString()}
                   ></KeyStringPair>
                 );
               } else if (Array.isArray(values[1])) {
