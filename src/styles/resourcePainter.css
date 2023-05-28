@@ -17,6 +17,11 @@
   color: white;
 }
 
+.expandable {
+  color: var(--color-2);
+  cursor: pointer;
+}
+
 .box-expanded {
   border-radius: 3px;
   margin: 10px 0;

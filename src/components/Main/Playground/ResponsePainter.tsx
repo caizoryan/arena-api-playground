@@ -30,7 +30,9 @@ const KeyArrayPair: Component<{ key: string; value: any[] }> = (props) => {
       class={expand() ? "box-expanded" : "box"}
     >
       <Show when={!expand()}>
-        <p onClick={() => setExpand(!expand())}>{props.key} : [......]</p>
+        <p onClick={() => setExpand(!expand())}>
+          {props.key} : <span class="expandable">{"[......]"}</span>
+        </p>
       </Show>
       <Show when={expand()}>
         <p onClick={() => setExpand(!expand())}> {props.key}: [ </p>
@@ -74,7 +76,8 @@ const KeyObject: Component<{ key: string; value: any[] }> = (props) => {
       >
         <Show when={!expand()}>
           <p onClick={() => setExpand(!expand())}>
-            {props.key + " : {......}"}
+            {props.key + ": "}
+            <span class="expandable">{"{......}"}</span>
           </p>
         </Show>
         <Show when={expand()}>
