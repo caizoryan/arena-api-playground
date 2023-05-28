@@ -64,14 +64,20 @@ const Slug: Component = () => {
               ? `enter the slug of the group`
               : `or enter the ${slug.available().noun} if you already know it`}
           </div>
-          <input type="text" ref={ref!} onFocus={() => setActive(true)}></input>
-          <button
-            onClick={() => {
-              slug.use(ref?.value);
-            }}
-          >
-            Set {slug.available().noun}
-          </button>
+          <div class="inline">
+            <input
+              type="text"
+              ref={ref!}
+              onFocus={() => setActive(true)}
+            ></input>
+            <button
+              onClick={() => {
+                slug.use(ref?.value);
+              }}
+            >
+              Set
+            </button>
+          </div>
         </div>
       </div>
       <div style={"display: flex; flex-wrap: wrap"}>

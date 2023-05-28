@@ -87,7 +87,7 @@ const QueryBuilder: Component = () => {
 
 function authRequired() {
   return (
-    !authenticated().auth && (query.method !== "GET" || query.slug === "me")
+    !authenticated().auth && (query.method !== "GET" || query.endpoint === "me")
   );
 }
 export default QueryBuilder;

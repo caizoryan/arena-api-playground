@@ -28,6 +28,7 @@ export const OptionBlock: Component<{
           </Match>
           <Match when={!props.options}>
             <input
+              class="select-input"
               type={props.type}
               value={props.value}
               onInput={(e) => {
