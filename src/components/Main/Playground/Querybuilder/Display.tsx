@@ -7,7 +7,6 @@ export const [url, setUrl] = createSignal(domain);
 const [method, setMethod] = createSignal("");
 export const [body, setBody] = createSignal<string>("");
 
-// TODO Query should refresh on every keystroke
 export function refreshQuery() {
   if (query.endpoint != "") setUrl(domain + query.endpoint);
   else setUrl(domain);
@@ -15,10 +14,10 @@ export function refreshQuery() {
   if (query.slug != "") setUrl(url() + "/" + query.slug);
 
   if (query.action != "") {
-    setMethod(findMethod());
-    let url = findUrl();
+    setMethod(getMethod());
+    let url = getActionUrl();
     url != "" ? setUrl(url) : null;
-    setBody(findBody());
+    setBody(getBody());
   }
 
   if (state() === "pagination" && query.method === "GET")
@@ -27,14 +26,14 @@ export function refreshQuery() {
       : setUrl(url() + "?" + paginationString());
 }
 
-function findMethod() {
+function getMethod() {
   let tempMethod = actions
     .avalilable()
     ?.find((action) => action.name === query.action)?.method;
   return tempMethod ? tempMethod : "";
 }
 
-function findUrl() {
+function getActionUrl() {
   let tempUrl = actions
     .avalilable()
     ?.find((action) => action.name === query.action)
@@ -42,7 +41,7 @@ function findUrl() {
   return tempUrl ? tempUrl : "";
 }
 
-function findBody() {
+function getBody() {
   let options = query.options;
 
   let bodyString = "";
@@ -57,7 +56,7 @@ function findBody() {
   return bodyString.substring(0, bodyString.length - 1);
 }
 
-function getPags() {
+function getPagination() {
   let arr = [];
   for (const x of query.pagination) arr.push(x);
   return arr;
@@ -67,7 +66,7 @@ function getPags() {
 // --------------------------------
 
 function paginationString() {
-  let [sort, direction, per, page, forceRefresh] = getPags();
+  let [sort, direction, per, page, forceRefresh] = getPagination();
   const attrs = [];
   if (page.value) attrs.push(`page=${page.value}`);
   if (per.value) attrs.push(`per=${per.value}`);
@@ -77,13 +76,13 @@ function paginationString() {
   return attrs.join("&");
 }
 
-export const QueryDisplay: Component = () => {
+export const Display: Component = () => {
   return (
     <div class="query">
       <div class="domain">
         <Switch>
           <Match when={query.action === ""}>
-            {`fetch("${url()}")`}
+            {`fetch("${url()}", {`}
             <br></br>
             {`headers: {`}
             <br></br>
@@ -117,9 +116,9 @@ export const QueryDisplay: Component = () => {
                 }
               >
                 <>
-                  {`body: {`}
+                  {`body: '{`}
                   {body()}
-                  {`}`}
+                  {`}'`}
                   <br></br>
                 </>
               </Show>

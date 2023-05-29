@@ -5,7 +5,7 @@ import {
   setAuthenticated,
 } from "../../../../Store/State";
 import { arena } from "../Playground";
-import { refreshQuery } from "./QueryDisplay";
+import { refreshQuery } from "./Display";
 import "../../../../styles/authenticate.css";
 
 const Authenticate: Component = () => {

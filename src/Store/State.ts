@@ -5,7 +5,7 @@ import {
   body,
   refreshQuery,
   url,
-} from "../components/Main/Playground/Querybuilder/QueryDisplay";
+} from "../components/Main/Playground/Querybuilder/Display";
 import { pagination } from "./Data";
 import {
   setLoading,
@@ -20,8 +20,6 @@ export const [authenticated, setAuthenticated] = createSignal({
 });
 
 export const history: History[] = createMutable([]);
-
-const domain = "https://api.are.na/v2/";
 
 export const query = createMutable<Query>({
   endpoint: "",
@@ -60,7 +58,7 @@ function setQuery(q: string): State {
   }
 }
 
-export const goBack = () => {
+const goBack = () => {
   let last = history[history.length - 1];
   setRequested(false);
   setState(last.state);
@@ -76,6 +74,12 @@ export const goBack = () => {
   history.pop();
   refreshQuery();
 };
+
+export function goBackTo(stage: string) {
+  let lastStageCache = history[history.length - 1];
+  goBack();
+  if (lastStageCache.query != stage) goBackTo(stage);
+}
 
 export function sendRequest() {
   setRequested(true);

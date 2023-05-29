@@ -1,5 +1,5 @@
 import { Component, createSignal, Show, For } from "solid-js";
-import { refreshQuery } from "../Main/Playground/Querybuilder/QueryDisplay";
+import { refreshQuery } from "../Main/Playground/Querybuilder/Display";
 
 export const DropDown: Component<{
   options: string[];

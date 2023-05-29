@@ -1,11 +1,9 @@
 import {
   Component,
-  createEffect,
   createMemo,
   createSignal,
   For,
   Match,
-  onMount,
   Show,
   Switch,
 } from "solid-js";
@@ -59,8 +57,6 @@ const KeyStringPair: Component<{ key: string; value: string }> = (props) => {
     </div>
   );
 };
-
-const Keys: Component = () => <></>;
 
 const KeyObject: Component<{ key: string; value: any[] }> = (props) => {
   const [expand, setExpand] = createSignal(false);

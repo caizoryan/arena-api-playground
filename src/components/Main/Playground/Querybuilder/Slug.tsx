@@ -14,7 +14,7 @@ import { slug } from "../../../../Store/Data";
 import Select from "../../../Babies/Select";
 
 const Slug: Component = () => {
-  let paginate = { per: 5 };
+  let paginate = { per: 16 };
   const [term, setTerm] = createSignal("");
   const [searchResults] = createResource(term, searchSlug);
 
@@ -39,8 +39,6 @@ const Slug: Component = () => {
   createEffect(() => {
     if (query.endpoint === "groups") setActive(true);
   });
-
-  //TODO remove search capability for groups
 
   return (
     <>

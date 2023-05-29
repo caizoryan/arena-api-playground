@@ -1,4 +1,4 @@
-import { Component, createEffect, For, Match, Show, Switch } from "solid-js";
+import { Component, For, Match, Switch } from "solid-js";
 import Endpoint from "./Endpoint";
 import Slug from "./Slug";
 import Action from "./Action";
@@ -7,15 +7,13 @@ import Pagination from "./Pagination";
 import {
   state,
   sendRequest,
-  goBack,
+  goBackTo,
   history,
   authenticated,
   query,
 } from "../../../../Store/State";
 import "../../../../styles/playground.css";
-import { QueryDisplay } from "./QueryDisplay";
-import Authenticate from "./Authenticate";
-import Space from "../../../Space";
+import { Display } from "./Display";
 
 // Set and save token for authentication
 // Select What first (channel/block/etc)
@@ -24,14 +22,8 @@ import Space from "../../../Space";
 // Select pagination option
 
 // See results
-//
-function goBackTo(stage: string) {
-  let lastStageCache = history[history.length - 1];
-  goBack();
-  if (lastStageCache.query != stage) goBackTo(stage);
-}
 
-const QueryBuilder: Component = () => {
+const Builder: Component = () => {
   return (
     <div>
       <For each={history}>
@@ -47,7 +39,7 @@ const QueryBuilder: Component = () => {
         )}
       </For>
       <button>{state()}</button>
-      <QueryDisplay></QueryDisplay>
+      <Display />
       <Switch>
         <Match when={state() === "endpoint"}>
           <Endpoint />
@@ -88,4 +80,4 @@ function authRequired() {
     !authenticated().auth && (query.method !== "GET" || query.endpoint === "me")
   );
 }
-export default QueryBuilder;
+export default Builder;

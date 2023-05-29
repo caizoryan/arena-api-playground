@@ -1,9 +1,8 @@
-import { Component, createSignal, For, Show } from "solid-js";
+import { Component, Show } from "solid-js";
 import Logo from "./Logo";
 import "../styles/sidebar.css";
 import Space from "./Space";
 import Sections from "./Sections/Sections";
-import Toggle from "./Toggle";
 import { BiSolidHeart } from "solid-icons/bi";
 import { authenticated } from "../Store/State";
 

@@ -1,5 +1,5 @@
 import { Component, Switch, Match } from "solid-js";
-import { refreshQuery } from "../Main/Playground/Querybuilder/QueryDisplay";
+import { refreshQuery } from "../Main/Playground/Querybuilder/Display";
 import { DropDown } from "./DropDown";
 
 export const OptionBlock: Component<{
