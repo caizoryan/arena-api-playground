@@ -1,0 +1,25 @@
+.header {
+  margin-top: calc(var(--padding) * 2);
+  margin-bottom: 50px;
+}
+
+.resources-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.resources-container h2 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.resources-container .link {
+  margin: 0px 20px 20px 0px;
+  width: calc(var(--block-size));
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.link img {
+  width: 100%;
+  height: calc(var(--block-size) / 1.5);
+  object-fit: cover;
+}

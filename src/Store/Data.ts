@@ -514,8 +514,7 @@ export const actions = {
                 domain +
                 query.endpoint +
                 "/" +
-                `?q=${
-                  query.options.find((option) => option.name === "query")?.value
+                `?q=${query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },
@@ -539,8 +538,7 @@ export const actions = {
                 "/" +
                 "channels" +
                 "/" +
-                `?q=${
-                  query.options.find((option) => option.name === "query")?.value
+                `?q=${query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },
@@ -565,8 +563,7 @@ export const actions = {
                 "/" +
                 "blocks" +
                 "/" +
-                `?q=${
-                  query.options.find((option) => option.name === "query")?.value
+                `?q=${query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },
@@ -590,8 +587,7 @@ export const actions = {
                 "/" +
                 "users" +
                 "/" +
-                `?q=${
-                  query.options.find((option) => option.name === "query")?.value
+                `?q=${query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },

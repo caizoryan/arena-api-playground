@@ -1,0 +1,23 @@
+.header {
+  margin-top: calc(var(--padding) * 2);
+}
+
+.resources-container {
+  max-width: 600px;
+}
+.resources-container h2 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.resources-container .link {
+  width: calc(var(--block-size));
+  height: calc(var(--block-size) / 2);
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.link img {
+  width: 100%;
+  height: calc(var(--block-size) / 1.5);
+  object-fit: cover;
+}
