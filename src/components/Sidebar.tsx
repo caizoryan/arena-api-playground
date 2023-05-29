@@ -42,13 +42,13 @@ const Sidebar: Component = () => {
       <Space d={{ w: "0", h: "20px" }} />
       <p class="intro-text"></p>
       <Sections />
-      <button
-        onClick={enableLightModeLOL}
-        style="margin-left: -7px; padding: 10px;"
-      >
-        {text()}
-      </button>
       <div class="bottom">
+        <button
+          onClick={enableLightModeLOL}
+          style="margin-left: -7px; padding: 10px;"
+        >
+          {text()}
+        </button>
         <Show when={authenticated().auth == true}>
           <p> Authenticated as {authenticated().user}</p>
         </Show>
