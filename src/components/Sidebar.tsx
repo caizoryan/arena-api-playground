@@ -14,7 +14,7 @@ const messages = [
   "Fr?",
   "That's funny",
   "LMAO Sure",
-  "Pay money to unlock",
+  "Pay moniz $$$ to unlock",
   "Disagreed",
   "Make opioniated software",
 ];
@@ -42,16 +42,16 @@ const Sidebar: Component = () => {
       <Space d={{ w: "0", h: "20px" }} />
       <p class="intro-text"></p>
       <Sections />
+      <button
+        onClick={enableLightModeLOL}
+        style="margin-left: -7px; padding: 10px;"
+      >
+        {text()}
+      </button>
       <div class="bottom">
         <Show when={authenticated().auth == true}>
           <p> Authenticated as {authenticated().user}</p>
         </Show>
-        <button
-          onClick={enableLightModeLOL}
-          style="margin-left: -7px; padding: 10px;"
-        >
-          {text()}
-        </button>
         <p>
           Made with <BiSolidHeart /> in Solid JS
         </p>
