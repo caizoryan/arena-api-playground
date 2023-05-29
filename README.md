@@ -4,7 +4,7 @@ This playground is meant to help better understand how the Are.na API / V2 funct
 
 ## Acknowledgements
 
-This Playground is heavily influenced the beautifully written libraries: [arena-ts](https://github.com/e-e-e/arena-ts) and [arena-js](https://github.com/ivangreene/arena-js). The structure of building the queries as well as how the Api works was fully constructed by reading the code in those libraries, many thanks to the authors! 
+This Playground is heavily influenced by the beautifully written libraries: [arena-ts](https://github.com/e-e-e/arena-ts) and [arena-js](https://github.com/ivangreene/arena-js). The structure of building the queries as well as how the Api works was fully constructed by reading the code in those libraries, many thanks to the authors! 
 
 ## Usage
 
