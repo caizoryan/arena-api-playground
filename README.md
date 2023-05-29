@@ -1,3 +1,11 @@
+# Are.na Api Playground
+
+This playground is meant to help better understand how the Are.na API / V2 functions and how the responses might look. I hope this can help anyone who is interested in making things or is just curious. I started this project to try and get better at writing better code, I would greatly appreciate any feedback I can get on how to improve!
+
+## Acknowledgements
+
+This Playground is heavily influenced the beautifully written libraries: [arena-ts](https://github.com/e-e-e/arena-ts) and [arena-js](https://github.com/ivangreene/arena-js). The structure of building the queries as well as how the Api works was fully constructed by reading the code in those libraries, many thanks to the authors! 
+
 ## Usage
 
 Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
@@ -17,18 +25,3 @@ In the project directory, you can run:
 ### `npm dev` or `npm start`
 
 Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
