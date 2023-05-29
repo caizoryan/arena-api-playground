@@ -7,6 +7,7 @@ import {
   createSignal,
   Switch,
   Show,
+  createMemo,
 } from "solid-js";
 import { query } from "../../../../Store/State";
 import Space from "../../../Space";
@@ -40,11 +41,23 @@ const Slug: Component = () => {
     if (query.endpoint === "groups") setActive(true);
   });
 
+  const slugDefinition = createMemo(() =>
+    query.endpoint != "users"
+      ? `The ${
+          slug.available()?.noun
+        } can be found at the end of the URL of when you visit your ${
+          query.endpoint
+        }, after the last '/'.`
+      : ""
+  );
+
   return (
     <>
+      <p>{slugDefinition()}</p>
+      <Space d={{ w: "0", h: "13px" }} />
       <div class="inline">
         <Show when={query.endpoint != "groups"}>
-          <div style={active() ? "opacity: .4" : "opacity: 1.0"}>
+          <div style={active() ? "opacity: .2" : "opacity: 1.0"}>
             <div>
               Search for the {slug.available()?.noun} for your {query.endpoint}
             </div>
@@ -56,7 +69,7 @@ const Slug: Component = () => {
           </div>
           <Space d={{ w: "40px", h: "10px" }} />
         </Show>
-        <div style={active() ? "opacity: 1" : "opacity: 0.4"}>
+        <div style={active() ? "opacity: 1" : "opacity: 0.3"}>
           <div>
             {query.endpoint === "groups"
               ? `enter the slug of the group`

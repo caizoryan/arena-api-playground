@@ -33,7 +33,7 @@ const Authenticate: Component = () => {
         <p>
           Enter your token, find it{" "}
           <a href="https://arena-token-gen.vercel.app/" target="_blank">
-            here
+            <button style="margin: 0; padding: 5px;">here</button>
           </a>
         </p>
         <Show when={err()}>

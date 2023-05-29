@@ -79,3 +79,15 @@ button:hover {
   color: var(--color-1);
   border: 2px solid rgba(255, 255, 255, 0.2);
 }
+
+.disabled {
+  color: rgb(200, 30, 0);
+  border: 0.7px solid rgb(200, 30, 0);
+}
+
+.disabled:hover {
+  cursor: none;
+  background: none;
+  color: rgb(200, 30, 0);
+  border: 0.7px solid rgb(200, 30, 0);
+}

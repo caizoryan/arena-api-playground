@@ -58,11 +58,7 @@ const Builder: Component = () => {
         </Match>
         <Match when={state() === "end"}>
           <button
-            style={
-              authRequired()
-                ? "color: rgba(230, 0, 0); border: 1.5px solid rgba(230, 0, 0)"
-                : ""
-            }
+            class={authRequired() ? "disabled" : ""}
             onClick={() => {
               authRequired() ? null : sendRequest();
             }}
@@ -77,7 +73,10 @@ const Builder: Component = () => {
 
 function authRequired() {
   return (
-    !authenticated().auth && (query.method !== "GET" || query.endpoint === "me")
+    !authenticated().auth &&
+    (query.method !== "GET" ||
+      query.endpoint === "me" ||
+      (query.endpoint === "users" && query.action != "get"))
   );
 }
 export default Builder;

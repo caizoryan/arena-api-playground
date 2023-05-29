@@ -514,7 +514,8 @@ export const actions = {
                 domain +
                 query.endpoint +
                 "/" +
-                `?q=${query.options.find((option) => option.name === "query")?.value
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },
@@ -538,7 +539,8 @@ export const actions = {
                 "/" +
                 "channels" +
                 "/" +
-                `?q=${query.options.find((option) => option.name === "query")?.value
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },
@@ -563,7 +565,8 @@ export const actions = {
                 "/" +
                 "blocks" +
                 "/" +
-                `?q=${query.options.find((option) => option.name === "query")?.value
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },
@@ -587,7 +590,8 @@ export const actions = {
                 "/" +
                 "users" +
                 "/" +
-                `?q=${query.options.find((option) => option.name === "query")?.value
+                `?q=${
+                  query.options.find((option) => option.name === "query")?.value
                 }`
               );
             },
@@ -663,10 +667,10 @@ export const pagination = [
     desc: "The page to fetch.",
     type: "number",
   },
-  {
-    name: "forceRefresh",
-    value: "no",
-    options: ["yes", "no"],
-    desc: "Force refresh of the server cache. ",
-  },
+  // {
+  //   name: "forceRefresh",
+  //   value: "no",
+  //   options: ["yes", "no"],
+  //   desc: "Force refresh of the server cache. ",
+  // },
 ];

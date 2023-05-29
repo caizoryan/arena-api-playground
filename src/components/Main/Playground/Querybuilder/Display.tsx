@@ -66,7 +66,7 @@ function getPagination() {
 // --------------------------------
 
 function paginationString() {
-  let [sort, direction, per, page, forceRefresh] = getPagination();
+  let [sort, direction, per, page] = getPagination();
   const attrs = [];
   if (page.value) attrs.push(`page=${page.value}`);
   if (per.value) attrs.push(`per=${per.value}`);
@@ -84,14 +84,17 @@ export const Display: Component = () => {
           <Match when={query.action === ""}>
             {`fetch("${url()}", {`}
             <br></br>
-            {`headers: {`}
+            &nbsp&nbsp{`headers: {`}
             <br></br>
-            {`"Content-Type": "application/json",`}
+            &nbsp&nbsp&nbsp&nbsp{`"Content-Type": "application/json",`}
             <br></br>
-            {`Authorization: "Bearer ${query.token}"`}
+            &nbsp&nbsp&nbsp&nbsp{`Authorization: "Bearer ${query.token}"`}
             <br></br>
-            {`}`}
-            {`}).then((res) => res.json())`}
+            &nbsp&nbsp{`},`}
+            <br></br>
+            {`})`}
+            <br></br>
+            {`.then((res) => res.json())`}
             <br></br>
             {`.then((res) => console.log(res))`}
           </Match>
@@ -99,15 +102,15 @@ export const Display: Component = () => {
             <>
               {`fetch("${url()}", {`}
               <br></br>
-              {`headers: {`}
+              &nbsp&nbsp{`headers: {`}
               <br></br>
-              {`"Content-Type": "application/json",`}
+              &nbsp&nbsp&nbsp&nbsp{`"Content-Type": "application/json",`}
               <br></br>
-              {`Authorization: "Bearer ${query.token}",`}
+              &nbsp&nbsp&nbsp&nbsp{`Authorization: "Bearer ${query.token}",`}
               <br></br>
-              {`},`}
+              &nbsp&nbsp{`},`}
               <br></br>
-              {`method: "${method()}",`}
+              &nbsp&nbsp{`method: "${method()}",`}
               <br></br>
               <Show
                 when={
@@ -116,13 +119,13 @@ export const Display: Component = () => {
                 }
               >
                 <>
-                  {`body: '{`}
-                  {body()}
-                  {`}'`}
+                  &nbsp&nbsp{`body: '{${body()}}'`}
                   <br></br>
                 </>
               </Show>
-              {`}).then((res) => res.json())`}
+              {`})`}
+              <br></br>
+              {`.then((res) => res.json())`}
               <br></br>
               {`.then((res) => console.log(res))`}
             </>

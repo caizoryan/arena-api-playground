@@ -65,6 +65,7 @@ const goBack = () => {
   if (last.query === "action") {
     query.options = [];
     query.method = "";
+    query.action = "";
   } else if (last.query === "end") null;
   else if (last.query === "options")
     query.options.forEach((opt) => (opt.value = ""));

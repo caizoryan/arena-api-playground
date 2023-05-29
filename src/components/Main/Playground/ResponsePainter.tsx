@@ -35,12 +35,16 @@ const KeyArrayPair: Component<{ key: string; value: any[] }> = (props) => {
       <Show when={expand()}>
         <p onClick={() => setExpand(!expand())}> {props.key}: [ </p>
         <For each={props.value}>
-          {(dog, i) => (
-            <KeyObject
-              key={i().toString()}
-              value={Object.entries(dog)}
-            ></KeyObject>
-          )}
+          {(dog, i) =>
+            typeof dog === "number" ? (
+              KeyStringPair({ key: i().toString(), value: dog.toString() })
+            ) : (
+              <KeyObject
+                key={i().toString()}
+                value={Object.entries(dog)}
+              ></KeyObject>
+            )
+          }
         </For>
         <p> ] </p>
       </Show>
