@@ -242,6 +242,9 @@ export const actions = {
               );
             },
           },
+          // TODO
+          // {name: "add collaborators"},
+          // {name: "delete collaborators"},
           {
             name: "create",
             desc: "Create a new channel",
@@ -291,7 +294,7 @@ export const actions = {
             ],
           },
           {
-            name: "createBlock",
+            name: "create block",
             desc: "Create a block in the channel",
             auth: true,
             method: "POST",
@@ -412,7 +415,7 @@ export const actions = {
             },
           },
           {
-            name: "addComment",
+            name: "add comment",
             desc: "Add a comment to selected block",
             auth: true,
             method: "POST",
@@ -431,7 +434,7 @@ export const actions = {
             ],
           },
           {
-            name: "deleteComment",
+            name: "delete comment",
             desc: "Delete a comment on selected block",
             auth: true,
             method: "DELETE",
@@ -667,6 +670,7 @@ export const pagination = [
     desc: "The page to fetch.",
     type: "number",
   },
+  // Need to figure this out
   // {
   //   name: "forceRefresh",
   //   value: "no",

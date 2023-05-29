@@ -91,3 +91,40 @@ button:hover {
   color: rgb(200, 30, 0);
   border: 0.7px solid rgb(200, 30, 0);
 }
+
+.block-mobile {
+  width: calc(100% - 60px);
+  height: calc(100% - 60px);
+  color: white;
+  padding: 30px;
+  font-size: 18px;
+  background-color: black;
+  z-index: 42069;
+  display: none;
+  line-height: 1.6em;
+}
+
+.block-mobile span {
+  cursor: pointer;
+  border: 1px solid white;
+  padding: 2px;
+  animation: funky 5000ms infinite;
+}
+
+@keyframes funky {
+  0% {
+    color: var(--color-1);
+  }
+  50% {
+    color: var(--color-2);
+  }
+  100% {
+    color: var(--color-1);
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .block-mobile {
+    display: block;
+  }
+}
